@@ -1,7 +1,13 @@
 import React from "react"
 import { gql, useQuery } from "@apollo/client"
+import { NewUserForm } from "./components/NewUserForm.component";
 
-const GET_USER = gql`
+type User = {
+  name: string;
+  id: string;
+}
+
+export const GET_USER = gql`
   query {
     users {
       id
@@ -12,18 +18,23 @@ const GET_USER = gql`
 
 function App() {
 
-  const { data, loading } = useQuery(GET_USER)
+  const { data, loading } = useQuery<{ users: User[] }>(GET_USER)
 
   if (loading) {
     return <p>Carregando ...</p>
   }
   console.log(data)
   return (
-    <ul>
-      {data?.users.map((item: any, index: number) =>
-        <li key={index}>{item?.name}</li>
-      )}
-    </ul>
+    <>
+      <ul>
+        {data?.users.map((user) =>
+          <li key={user?.id}>{user?.name}</li>
+        )}
+      </ul>
+      <div>
+        <NewUserForm />
+      </div>
+    </>
   )
 }
 
