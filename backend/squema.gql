@@ -3,11 +3,20 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Client {
+  celular: String!
+  email: String!
+  id: ID!
+  name: String!
+  urlFotoPerfil: String!
+}
+
 type Mutation {
   createUser(name: String!): User!
 }
 
 type Query {
+  hello: [Client!]!
   users: [User!]!
 }
 
