@@ -5,18 +5,25 @@
 
 type Client {
   celular: String!
-  email: String!
   id: ID!
   name: String!
   urlFotoPerfil: String!
 }
 
+input CreateClientInput {
+  celular: String!
+  name: String!
+  urlFotoPerfil: String!
+}
+
 type Mutation {
+  createClient(createClientObject: CreateClientInput!): Client!
   createUser(name: String!): User!
 }
 
 type Query {
-  hello: [Client!]!
+  client(id: String!): Client!
+  clients: [Client!]!
   users: [User!]!
 }
 
