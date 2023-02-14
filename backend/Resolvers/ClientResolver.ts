@@ -19,12 +19,14 @@ export class ClientResolver {
   async createClient(
     @Arg("createClientObject") createClientObject: CreateClientInput
   ) {
-    const { name, urlFotoPerfil, celular } = createClientObject;
+    const { name, adress, cpf, email, tel } = createClientObject;
 
     return await ClientMongo.create({
       name,
-      urlFotoPerfil,
-      celular,
+      adress,
+      cpf,
+      email,
+      tel,
     });
   }
 }

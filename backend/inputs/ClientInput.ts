@@ -6,8 +6,14 @@ export class CreateClientInput {
   name: string;
 
   @Field()
-  urlFotoPerfil: string;
+  email: string;
 
   @Field()
-  celular: string;
+  cpf: string;
+
+  @Field()
+  adress: string;
+
+  @Field()
+  tel: string;
 }

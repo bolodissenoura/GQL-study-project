@@ -2,15 +2,21 @@ import { Field, ID, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class Client {
-  @Field((_type) => ID)
+  @Field((type) => ID)
   id: string;
 
   @Field()
   name: string;
 
   @Field()
-  urlFotoPerfil: string;
+  email: string;
 
   @Field()
-  celular: string;
+  cpf: string;
+
+  @Field()
+  adress: string;
+
+  @Field()
+  tel: string;
 }
