@@ -1,5 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { CreateSurgeryInput } from "../inputs/SurgeryInput";
+import { CreateSurgeryInput, EditSurgeryInput } from "../inputs/SurgeryInput";
 import { Surgery } from "../models/Surgery";
 import { SurgeryMongo } from "../mongodb/models/Surgery";
 
@@ -30,5 +30,21 @@ export class SurgeryResolver {
       patient,
       tipo,
     });
+  }
+
+  @Mutation(() => Surgery)
+  async editSurgery(
+    @Arg("editSurgeryObject") editSurgeryObject: EditSurgeryInput
+  ) {
+    const surgery = { ...editSurgeryObject };
+
+    await SurgeryMongo.updateOne(
+      {
+        _id: surgery.id,
+      },
+      surgery
+    );
+
+    return surgery;
   }
 }

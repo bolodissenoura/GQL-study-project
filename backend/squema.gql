@@ -12,8 +12,19 @@ input CreateSurgeryInput {
   tipo: String!
 }
 
+input EditSurgeryInput {
+  date: String!
+  distance: Float!
+  doctor: String!
+  hospital: String!
+  id: ID!
+  patient: String!
+  tipo: String!
+}
+
 type Mutation {
   createSurgery(createSurgeryObject: CreateSurgeryInput!): Surgery!
+  editSurgery(editSurgeryObject: EditSurgeryInput!): Surgery!
 }
 
 type Query {
