@@ -1,22 +1,25 @@
 import { Field, ID, ObjectType } from "type-graphql";
 
 @ObjectType()
-export class Client {
+export class Surgery {
   @Field((type) => ID)
   id: string;
 
   @Field()
-  name: string;
+  patient: string;
 
   @Field()
-  email: string;
+  doctor: string;
 
   @Field()
-  cpf: string;
+  hospital: string;
 
   @Field()
-  adress: string;
+  tipo: string;
 
   @Field()
-  tel: string;
+  distance: number;
+
+  @Field()
+  date: string;
 }

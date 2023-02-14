@@ -3,28 +3,30 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Client {
-  adress: String!
-  cpf: String!
-  email: String!
-  id: ID!
-  name: String!
-  tel: String!
-}
-
-input CreateClientInput {
-  adress: String!
-  cpf: String!
-  email: String!
-  name: String!
-  tel: String!
+input CreateSurgeryInput {
+  date: String!
+  distance: Float!
+  doctor: String!
+  hospital: String!
+  patient: String!
+  tipo: String!
 }
 
 type Mutation {
-  createClient(createClientObject: CreateClientInput!): Client!
+  createSurgery(createSurgeryObject: CreateSurgeryInput!): Surgery!
 }
 
 type Query {
-  client(id: String!): Client!
-  clients: [Client!]!
+  Surgeries: [Surgery!]!
+  Surgery(id: String!): Surgery!
+}
+
+type Surgery {
+  date: String!
+  distance: Float!
+  doctor: String!
+  hospital: String!
+  id: ID!
+  patient: String!
+  tipo: String!
 }

@@ -4,13 +4,13 @@ require("dotenv").config({ path: ".env.local" });
 import "./mongodb/connect";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
-import { ClientResolver } from "./Resolvers/ClientResolver";
+import { SurgeryResolver } from "./Resolvers/SurgeryResolver";
 
 async function main() {
   const schema = await buildSchema({
-    resolvers: [ClientResolver],
+    resolvers: [SurgeryResolver],
     emitSchemaFile: path.resolve(__dirname, "squema.gql"),
-    validate: false
+    validate: false,
   });
 
   const server = new ApolloServer({
