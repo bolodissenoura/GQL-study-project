@@ -47,4 +47,10 @@ export class SurgeryResolver {
 
     return surgery;
   }
+
+  @Mutation(() => String)
+  async deleteSurgery(@Arg("id") id: string) {
+    await SurgeryMongo.deleteOne({ _id: id });
+    return `Usuario ${id} deletado com sucesso`
+  }
 }

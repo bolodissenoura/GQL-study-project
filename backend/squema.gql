@@ -24,6 +24,7 @@ input EditSurgeryInput {
 
 type Mutation {
   createSurgery(createSurgeryObject: CreateSurgeryInput!): Surgery!
+  deleteSurgery(id: String!): String!
   editSurgery(editSurgeryObject: EditSurgeryInput!): Surgery!
 }
 
