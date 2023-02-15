@@ -10,10 +10,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='bg-gray-400 h-screen' >
+      <main className='bg-gray-400 h-auto p-5 min-h-screen overflow-x-auto' >
         <section className="container px-4 mx-auto">
           <div className="sm:flex sm:items-center sm:justify-between">
-
             <div className="flex items-center mt-4 gap-x-3">
               <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +34,7 @@ export default function Home() {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
 
-                <span>Add vendor</span>
+                <span>Add cirurgia</span>
               </button>
             </div>
           </div>
@@ -66,14 +65,17 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col mt-6">
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="flex flex-col mt-6  ">
+            <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 ">
+              <div className="inline-block min-w-full max-h-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-y-auto " >
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8" >
                     <C.TableHeader />
-                    <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                    <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 " >
                       <C.TableRow />
+                      <C.TableRow />
+                      <C.TableRow />
+                    
                     </tbody>
                   </table>
                 </div>
