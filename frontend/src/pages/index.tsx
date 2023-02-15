@@ -10,7 +10,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main >
+      <main className='bg-gray-400 h-screen' >
         <section className="container px-4 mx-auto">
           <div className="sm:flex sm:items-center sm:justify-between">
 
@@ -71,7 +71,7 @@ export default function Home() {
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                 <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                   <C.TableHeader />
+                    <C.TableHeader />
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                       <C.TableRow />
                     </tbody>
