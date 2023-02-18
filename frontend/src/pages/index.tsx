@@ -1,6 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
+import { fakeDataRows } from "@/fakeData";
+import { SurgeryInterface } from "@/interfaces";
 
 export default function Home() {
   const ref = React.useRef();
@@ -86,9 +88,25 @@ export default function Home() {
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
                     <C.TableHeader />
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                      <C.TableRow />
-                      <C.TableRow />
-                      <C.TableRow />
+                      {fakeDataRows.map(
+                        (item: SurgeryInterface, index: number) => (
+                          <>
+                            <C.TableRow
+                              key={index}
+                              date={item.date}
+                              distance={item.distance}
+                              doctor={item.doctor}
+                              hospital={item.hospital}
+                              hour={item.hour}
+                              instrumentator={item.instrumentator}
+                              patient={item.patient}
+                              startingPoint={item.hospital}
+                              toll={item.toll}
+                              typeTag={item.typeTag}
+                            />
+                          </>
+                        )
+                      )}
                     </tbody>
                   </table>
                 </div>

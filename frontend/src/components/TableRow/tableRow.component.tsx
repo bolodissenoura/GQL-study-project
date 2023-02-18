@@ -1,21 +1,23 @@
-export const TableRow = () => {
+import { SurgeryInterface } from "@/interfaces";
+
+export const TableRow = (props: SurgeryInterface) => {
   return (
     <>
       <tr>
         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
           <div>
             <h2 className="font-medium text-gray-800 dark:text-white ">
-              04/02/2023
+              {props.date}
             </h2>
             <p className="text-sm font-normal text-gray-600 dark:text-gray-400">
-              7:00
+              {props.hour}
             </p>
           </div>
         </td>
 
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <div>
-            <h4 className="text-gray-700 dark:text-gray-200">Ilda Lima</h4>
+            <p className="text-gray-700 dark:text-gray-200"> {props.patient}</p>
           </div>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
@@ -25,38 +27,53 @@ export const TableRow = () => {
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
               alt=""
             />
-            <h4 className="text-gray-700 dark:text-gray-200 ml-3">
-              Vinícius Malvadeza
-            </h4>
+            <p className="text-gray-700 dark:text-gray-200 ml-3">
+              {props.instrumentator}
+            </p>
           </div>
         </td>
 
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <h4 className="text-gray-700 dark:text-gray-200">
-            Marcelo Laranjeira
-          </h4>
+          <p className="text-gray-700 dark:text-gray-200">{props.doctor}</p>
         </td>
 
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <h4 className="text-gray-700 dark:text-gray-200">Minha casa</h4>
-          <p className="text-gray-500 dark:text-gray-400">R. Francisca ..</p>
+          <p className="text-gray-700 dark:text-gray-200 text-ellipsis overflow-hidden w-32">
+            {" "}
+            {props.startingPoint.title}
+          </p>
+          <p className="text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden w-32">
+            {props.startingPoint.fullAdress}
+          </p>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <h4 className="text-gray-700 dark:text-gray-200">Vivalle</h4>
-          <p className="text-gray-500 dark:text-gray-400">R. Francisca ..</p>
+          <p className="text-gray-700 dark:text-gray-200 text-ellipsis overflow-hidden w-32 ">
+            {props.hospital.title}
+          </p>
+          <p className="text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden w-32 ">
+            {props.hospital.fullAdress}
+          </p>
         </td>
         <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
           <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-            ORT
+            {props.typeTag}
           </div>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <h4 className="text-gray-700 dark:text-gray-200">Vivalle</h4>
-          <p className="text-gray-500 dark:text-gray-400">R. Francisca ..</p>
+          <p className="text-gray-700 dark:text-gray-200">
+            {props.distance} km
+          </p>
+          <p className="text-gray-500 dark:text-gray-400">
+            {props.distance + props.distance} km
+          </p>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <h4 className="text-gray-700 dark:text-gray-200">3</h4>
-          <p className="text-gray-500 dark:text-gray-400">R$15,80</p>
+          <p className="text-gray-700 dark:text-gray-200">
+            {props.toll.totalTolls}
+          </p>
+          <p className="text-gray-500 dark:text-gray-400">
+            R$ {props.toll.totalTollsPrice}
+          </p>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <button className="text-gray-500 dark:text-gray-400">
