@@ -20,7 +20,7 @@ export const TableHeader = () => {
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Quilometragem</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Pedagio</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Editar</th>
-
+          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-red-500 dark:text-red-400">Deletar</th>
         </tr>
       </thead>
     </>
