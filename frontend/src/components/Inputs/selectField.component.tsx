@@ -22,7 +22,9 @@ export function SelectField(props: SelectFieldInterface) {
         <option selected>{props.placeholder ?? "Selecione uma opção"}</option>
         {props.options.map((item: OptionsInterface) => (
           <>
-            <option value={item.id}>{item.label}</option>
+            <option key={item.id} value={item.id}>
+              {item.label}
+            </option>
           </>
         ))}
       </select>
