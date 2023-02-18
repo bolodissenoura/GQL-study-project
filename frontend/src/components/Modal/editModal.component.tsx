@@ -1,4 +1,5 @@
 /* eslint-disable react/display-name */
+import { fakeData } from "@/fakeData";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
@@ -6,10 +7,6 @@ import * as C from "../index";
 interface EditModalInterface {
   titleModal?: string;
 }
-
-type Ref = {
-  openModal: () => void;
-} | null;
 
 export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -79,19 +76,24 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
                     required
                     label="Instrumentador"
                   />
-                  <C.TextField
-                    id="hour"
-                    type="select"
-                    required
+                  <C.SelectField
+                    id="partida"
                     label="Ponto de Partida"
+                    options={fakeData}
+                    placeholder="Minha casa ..."
                   />
-                  <C.TextField
-                    id="hour"
-                    type="select"
-                    required
+                  <C.SelectField
+                    id="hospital"
                     label="Hospital"
+                    options={fakeData}
+                    placeholder="Hospital Vivalle ..."
                   />
-                  <C.TextField id="hour" type="select" required label="Tipo" />
+                  <C.SelectField
+                    id="Tipo"
+                    label="Tipo"
+                    options={fakeData}
+                    placeholder="ORT"
+                  />
                 </div>
               </div>
               <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
