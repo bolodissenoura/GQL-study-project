@@ -36,6 +36,7 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
   function closeModal() {
     setIsOpen(false);
   }
+
   return (
     <>
       <form>
@@ -70,12 +71,26 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
               </div>
               <div className="p-6 space-y-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
-
                   <C.TextField id="date" type="date" required label="Data" />
                   <C.TextField id="hour" type="time" required label="Hora" />
-                  <C.TextField id="hour" type="select" required label="Instrumentador" />
-                  <C.TextField id="hour" type="select" required label="Ponto de Partida" />
-                  <C.TextField id="hour" type="select" required label="Hospital" />
+                  <C.TextField
+                    id="hour"
+                    type="select"
+                    required
+                    label="Instrumentador"
+                  />
+                  <C.TextField
+                    id="hour"
+                    type="select"
+                    required
+                    label="Ponto de Partida"
+                  />
+                  <C.TextField
+                    id="hour"
+                    type="select"
+                    required
+                    label="Hospital"
+                  />
                   <C.TextField id="hour" type="select" required label="Tipo" />
                 </div>
               </div>
