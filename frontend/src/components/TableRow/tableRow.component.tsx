@@ -1,6 +1,8 @@
 import { SurgeryInterface } from "@/interfaces";
+import React from "react";
 
 export const TableRow = (props: SurgeryInterface) => {
+  const ref = React.useRef();
   return (
     <>
       <tr>
@@ -76,7 +78,9 @@ export const TableRow = (props: SurgeryInterface) => {
           </p>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <button className="text-gray-500 dark:text-gray-400">
+          <button
+            onClick={() => console.log("queijo")}
+            className="text-gray-500 dark:text-gray-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -89,7 +93,9 @@ export const TableRow = (props: SurgeryInterface) => {
           </button>
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
-          <button className="text-red-500 dark:text-red-400">
+          <button
+            onClick={() => console.log("queijo")}
+            className="text-red-500 dark:text-red-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
