@@ -1,20 +1,13 @@
-/* eslint-disable react/display-name */
 import React from "react";
 import Modal from "react-modal";
 
 interface DeleteModalInterface {
   titleModal?: string;
-  showModal: any;
-  hideModal: any;
-  confirmModal: any;
-  id: any;
-  type: any;
-  message: any;
+  modalState: boolean;
+  closeModalDelete: () => void;
 }
 
-export const DeleteModal = (props: DeleteModalInterface) => {
-  const [modalIsOpenDelete, setModalIsOpenDelete] = React.useState(false);
-
+export function DeleteModal(props: DeleteModalInterface) {
   const customStyles = {
     content: {
       top: "50%",
@@ -28,26 +21,22 @@ export const DeleteModal = (props: DeleteModalInterface) => {
     },
   };
 
-  function closeModal() {
-    setModalIsOpenDelete(false);
-  }
-
   return (
     <>
       <Modal
-        isOpen={modalIsOpenDelete}
-        onRequestClose={closeModal}
+        isOpen={props.modalState}
+        onRequestClose={props.closeModalDelete}
         style={customStyles}
         contentLabel="Example Modal">
         <div
           id="deleteModal"
           aria-hidden="true"
-          className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+          className="relative w-full h-full max-w-2xl md:h-auto ">
           <div className="relative p-4 w-full max-w-md h-full md:h-auto">
             <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
               <button
                 type="button"
-                onClick={() => closeModal()}
+                onClick={() => props.closeModalDelete()}
                 className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-toggle="deleteModal">
                 <svg
@@ -81,6 +70,7 @@ export const DeleteModal = (props: DeleteModalInterface) => {
                 <button
                   data-modal-toggle="deleteModal"
                   type="button"
+                  onClick={() => props.closeModalDelete()}
                   className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                   Não, cancelar
                 </button>
@@ -96,4 +86,4 @@ export const DeleteModal = (props: DeleteModalInterface) => {
       </Modal>
     </>
   );
-};
+}

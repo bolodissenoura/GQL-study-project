@@ -1,8 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import { SurgeryInterface } from "@/interfaces";
 import React from "react";
+import * as Modal from "@/components/Modal";
 
 export const TableRow = (props: SurgeryInterface) => {
-  const ref = React.useRef();
+  const [modalDeleteState, setModalDeleteState] = React.useState(false);
+  function openModalDelete() {
+    setModalDeleteState(true);
+  }
+
   return (
     <>
       <tr>
@@ -94,7 +100,7 @@ export const TableRow = (props: SurgeryInterface) => {
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <button
-            onClick={() => console.log("queijo")}
+            onClick={() => openModalDelete()}
             className="text-red-500 dark:text-red-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +113,10 @@ export const TableRow = (props: SurgeryInterface) => {
           </button>
         </td>
       </tr>
+      <Modal.DeleteModal
+        closeModalDelete={() => setModalDeleteState(false)}
+        modalState={modalDeleteState}
+      />
     </>
   );
 };
