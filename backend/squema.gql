@@ -7,19 +7,27 @@ input CreateSurgeryInput {
   date: String!
   distance: Float!
   doctor: String!
-  hospital: String!
+  hospital: [String!]!
+  hour: String!
+  instrumentator: String!
   patient: String!
-  tipo: String!
+  startingPoint: [String!]!
+  toll: [String!]!
+  typeTag: String!
 }
 
 input EditSurgeryInput {
   date: String!
   distance: Float!
   doctor: String!
-  hospital: String!
+  hospital: [String!]!
+  hour: String!
   id: ID!
+  instrumentator: String!
   patient: String!
-  tipo: String!
+  startingPoint: [String!]!
+  toll: [String!]!
+  typeTag: String!
 }
 
 type Mutation {
@@ -38,7 +46,12 @@ type Surgery {
   distance: Float!
   doctor: String!
   hospital: String!
+  hour: String!
   id: ID!
+  instrumentator: String!
   patient: String!
+  startingPoint: String!
   tipo: String!
+  toll: String!
+  typeTag: String!
 }

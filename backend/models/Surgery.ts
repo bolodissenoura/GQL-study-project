@@ -12,9 +12,6 @@ export class Surgery {
   doctor: string;
 
   @Field()
-  hospital: string;
-
-  @Field()
   tipo: string;
 
   @Field()
@@ -22,4 +19,31 @@ export class Surgery {
 
   @Field()
   date: string;
+
+  @Field()
+  hour: string;
+
+  @Field()
+  instrumentator: string;
+
+  @Field((type) => String)
+  startingPoint: {
+    title: string;
+    fullAdress: string;
+  };
+
+  @Field((type) => String)
+  hospital: {
+    title: string;
+    fullAdress: string;
+  };
+
+  @Field()
+  typeTag: string;
+
+  @Field((type) => String)
+  toll: {
+    totalTolls: number;
+    totalTollsPrice: number;
+  };
 }

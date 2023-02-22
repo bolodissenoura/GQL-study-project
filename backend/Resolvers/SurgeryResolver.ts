@@ -19,16 +19,30 @@ export class SurgeryResolver {
   async createSurgery(
     @Arg("createSurgeryObject") createSurgeryObject: CreateSurgeryInput
   ) {
-    const { date, distance, doctor, hospital, patient, tipo } =
-      createSurgeryObject;
+    const {
+      date,
+      hour,
+      patient,
+      instrumentator,
+      doctor,
+      startingPoint,
+      hospital,
+      typeTag,
+      distance,
+      toll,
+    } = createSurgeryObject;
 
     return await SurgeryMongo.create({
       date,
-      distance,
-      doctor,
-      hospital,
+      hour,
       patient,
-      tipo,
+      instrumentator,
+      doctor,
+      startingPoint,
+      hospital,
+      typeTag,
+      distance,
+      toll,
     });
   }
 
@@ -51,6 +65,6 @@ export class SurgeryResolver {
   @Mutation(() => String)
   async deleteSurgery(@Arg("id") id: string) {
     await SurgeryMongo.deleteOne({ _id: id });
-    return `Usuario ${id} deletado com sucesso`
+    return `Usuario ${id} deletado com sucesso`;
   }
 }
