@@ -1,5 +1,4 @@
-/* eslint-disable react/display-name */
-import { fakeData } from "@/fakeData";
+import { fakeDataTags } from "@/fakeData";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
@@ -50,13 +49,13 @@ export function EditModal(props: EditModalInterface) {
                   <C.TextField id="hour" type="time" required label="Hora" />
 
                   <C.TextField
-                    id="Instrumentador"
+                    id="instrumentator"
                     type="select"
                     required
-                    label="Instrumentador"
+                    label="Instrumentator"
                   />
                   <C.TextField
-                    id="partida"
+                    id="starting-point"
                     type="text"
                     required
                     label="Starting Point"
@@ -68,9 +67,9 @@ export function EditModal(props: EditModalInterface) {
                     label="Hospital"
                   />
                   <C.SelectField
-                    id="Tipo"
-                    label="Tipo"
-                    options={fakeData}
+                    id="Tag"
+                    label="Tag"
+                    options={fakeDataTags}
                     placeholder="ORT"
                   />
                 </div>

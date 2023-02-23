@@ -23,7 +23,7 @@ export function SelectField(props: SelectFieldInterface) {
         {props.options.map((item: OptionsInterface) => (
           <>
             <option key={item.id} value={item.id}>
-              {item.label}
+              {item.title}
             </option>
           </>
         ))}
