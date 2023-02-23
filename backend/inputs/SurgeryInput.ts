@@ -9,9 +9,6 @@ export class CreateSurgeryInput {
   doctor: string;
 
   @Field()
-  distance: number;
-
-  @Field()
   date: string;
 
   @Field()
@@ -40,9 +37,6 @@ export class EditSurgeryInput {
 
   @Field()
   doctor: string;
-
-  @Field()
-  distance: number;
 
   @Field()
   date: string;

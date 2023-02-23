@@ -12,9 +12,6 @@ export class Surgery {
   doctor: string;
 
   @Field()
-  distance: number;
-
-  @Field()
   date: string;
 
   @Field()

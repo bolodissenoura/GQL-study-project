@@ -5,7 +5,6 @@
 
 input CreateSurgeryInput {
   date: String!
-  distance: Float!
   doctor: String!
   hospitalName: String!
   hour: String!
@@ -17,7 +16,6 @@ input CreateSurgeryInput {
 
 input EditSurgeryInput {
   date: String!
-  distance: Float!
   doctor: String!
   hospitalName: String!
   hour: String!
@@ -41,7 +39,6 @@ type Query {
 
 type Surgery {
   date: String!
-  distance: Float!
   doctor: String!
   hospitalName: String!
   hour: String!
