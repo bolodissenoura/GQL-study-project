@@ -28,12 +28,13 @@ export default function Home() {
     GET_CLIENTS
   );
 
-  console.log(data?.Surgeries);
+  console.log(data?.Surgeries.length);
 
   const [modalEditState, setModalEditState] = React.useState(false);
   function openModalEdit() {
     setModalEditState(true);
   }
+
   return (
     <>
       <Head>
@@ -49,24 +50,15 @@ export default function Home() {
         <section className="container px-4 mx-auto">
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex items-center mt-4 gap-x-3">
-              <button
+              <C.DefaultButton
                 onClick={() => openModalEdit()}
-                className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span>Add surgery</span>
-              </button>
+                text="Add surgery"
+              />
+              <C.DefaultButton
+                onClick={() => openModalEdit()}
+                disabled
+                text="Add TAG"
+              />
             </div>
           </div>
           <div className="mt-6 md:flex md:items-center md:justify-between">
@@ -112,35 +104,56 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex flex-col mt-6  ">
-            <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 ">
-              <div className="inline-block min-w-full max-h-full py-2 align-middle md:px-6 lg:px-8">
-                <div className="border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-y-auto ">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
-                    <C.TableHeader />
-                    <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                      {data?.Surgeries?.map((item: SurgeryInterface) => (
-                        <>
-                          <C.TableRow
-                            key={item.id}
-                            startingPoint={item.startingPoint}
-                            date={item.date}
-                            doctor={item.doctor}
-                            hospitalName={item.hospitalName}
-                            hour={item.hour}
-                            instrumentator={item.instrumentator}
-                            patient={item.patient}
-                            typeTag={item.typeTag}
-                          />
-                        </>
-                      ))}
-                    </tbody>
-                  </table>
+
+          {data?.Surgeries ? (
+            <>
+              <div className="flex flex-col mt-6  ">
+                <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8 ">
+                  <div className="inline-block min-w-full max-h-full py-2 align-middle md:px-6 lg:px-8">
+                    <div className="border border-gray-200 dark:border-gray-700 md:rounded-lg overflow-y-auto ">
+                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
+                        <C.TableHeader />
+                        <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
+                          {data?.Surgeries?.map((item: SurgeryInterface) => (
+                            <>
+                              <C.TableRow
+                                key={item.id}
+                                startingPoint={item.startingPoint}
+                                date={item.date}
+                                doctor={item.doctor}
+                                hospitalName={item.hospitalName}
+                                hour={item.hour}
+                                instrumentator={item.instrumentator}
+                                patient={item.patient}
+                                typeTag={item.typeTag}
+                              />
+                            </>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <div className="sm:flex sm:items-center justify-center mt-8 w-full">
+                <p className="text-lg font-medium text-gray-900 dark:text-white">
+                  You dont have surgeries yet, try to :{" "}
+                </p>
+
+                <div className="flex items-center ml-8 gap-x-3">
+                  <C.DefaultButton
+                    onClick={() => openModalEdit()}
+                    text="Add surgery"
+                  />
+                </div>
+              </div>
+            </>
+          )}
         </section>
+
         <Modal.EditModal
           closeModalDelete={() => setModalEditState(false)}
           modalState={modalEditState}
