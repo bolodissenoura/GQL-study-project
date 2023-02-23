@@ -3,8 +3,32 @@ import Head from "next/head";
 import * as C from "@/components";
 import { fakeDataRows, fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
+import { gql, useQuery } from "@apollo/client";
+
+const GET_CLIENTS = gql`
+  query {
+    Surgeries {
+      date
+      distance
+      doctor
+      hospitalName
+      hour
+      id
+      instrumentator
+      startingPoint
+      typeTag
+      patient
+    }
+  }
+`;
 
 export default function Home() {
+  const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
+    GET_CLIENTS
+  );
+
+  console.log(data?.Surgeries);
+
   const ref = React.useRef();
   return (
     <>
@@ -29,12 +53,12 @@ export default function Home() {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-5 h-5">
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
@@ -68,12 +92,12 @@ export default function Home() {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                   />
                 </svg>
@@ -92,24 +116,22 @@ export default function Home() {
                   <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
                     <C.TableHeader />
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                      {fakeDataRows.map(
-                        (item: SurgeryInterface, index: number) => (
-                          <>
-                            <C.TableRow
-                              key={index}
-                              startingPoint={item.startingPoint}
-                              date={item.date}
-                              distance={item.distance}
-                              doctor={item.doctor}
-                              hospitalName={item.hospitalName}
-                              hour={item.hour}
-                              instrumentator={item.instrumentator}
-                              patient={item.patient}
-                              typeTag={item.typeTag}
-                            />
-                          </>
-                        )
-                      )}
+                      {data?.Surgeries?.map((item: SurgeryInterface) => (
+                        <>
+                          <C.TableRow
+                            key={item.id}
+                            startingPoint={item.startingPoint}
+                            date={item.date}
+                            distance={item.distance}
+                            doctor={item.doctor}
+                            hospitalName={item.hospitalName}
+                            hour={item.hour}
+                            instrumentator={item.instrumentator}
+                            patient={item.patient}
+                            typeTag={item.typeTag}
+                          />
+                        </>
+                      ))}
                     </tbody>
                   </table>
                 </div>
