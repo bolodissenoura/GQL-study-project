@@ -63,7 +63,7 @@ export const TableRow = (props: SurgeryInterface) => {
           </p> */}
         </td>
         <td className="px-12 py-4 text-sm whitespace-nowrap">
-          <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+          <div className="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 dark:bg-gray-800">
             {props.typeTag}
           </div>
         </td>

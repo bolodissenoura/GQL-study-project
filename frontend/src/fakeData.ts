@@ -33,12 +33,12 @@ export const fakeDataTags: TagsInterface[] = [
   },
   {
     title: "ATM",
-    color: "green",
-    id: "elonmusk6820",
+    color: "blue",
+    id: "elonmusk68420",
   },
   {
     title: "REC",
-    color: "blue",
+    color: "yellow",
     id: "elonmusk67420",
   },
 ];
