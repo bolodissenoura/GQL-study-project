@@ -17,8 +17,8 @@ export const TableHeader = () => {
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Starting Point</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Hospital</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Tag</th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Distance</th>
-          {/* <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Pedagio</th> */}
+          {/* <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Distance</th> */}
+          {/* <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Toll</th> */}
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Editar</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-red-500 dark:text-red-400">Deletar</th>
         </tr>

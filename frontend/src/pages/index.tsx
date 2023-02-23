@@ -125,7 +125,6 @@ export default function Home() {
                             key={item.id}
                             startingPoint={item.startingPoint}
                             date={item.date}
-                            distance={item.distance}
                             doctor={item.doctor}
                             hospitalName={item.hospitalName}
                             hour={item.hour}

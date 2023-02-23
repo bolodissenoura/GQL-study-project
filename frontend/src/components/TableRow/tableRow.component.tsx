@@ -62,19 +62,19 @@ export const TableRow = (props: SurgeryInterface) => {
             {props.hospitalName}
           </p> */}
         </td>
-        <td className="px-12 py-4 text-sm whitespace-nowrap">
+        <td className="px-4 py-4 text-sm whitespace-nowrap">
           <div className="inline px-3 py-1 text-sm font-normal rounded-full text-red-500 gap-x-2 bg-red-100/60 dark:bg-gray-800">
             {props.typeTag}
           </div>
         </td>
-        <td className="px-4 py-4 text-sm whitespace-nowrap">
+        {/* <td className="px-4 py-4 text-sm whitespace-nowrap">
           <p className="text-gray-700 dark:text-gray-200">
             {props.distance} km
           </p>
           <p className="text-gray-500 dark:text-gray-400">
             {props.distance + props.distance} km
           </p>
-        </td>
+        </td> */}
         {/* <td className="px-4 py-4 text-sm whitespace-nowrap">
           <p className="text-gray-700 dark:text-gray-200">
             {props.toll.totalTolls}
