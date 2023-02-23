@@ -26,10 +26,9 @@ export class SurgeryResolver {
       instrumentator,
       doctor,
       startingPoint,
-      hospital,
+      hospitalName,
       typeTag,
       distance,
-      toll,
     } = createSurgeryObject;
 
     return await SurgeryMongo.create({
@@ -39,10 +38,9 @@ export class SurgeryResolver {
       instrumentator,
       doctor,
       startingPoint,
-      hospital,
+      hospitalName,
       typeTag,
       distance,
-      toll,
     });
   }
 

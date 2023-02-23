@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class Surgery {
-  @Field((type) => ID)
+  @Field((_type) => ID)
   id: string;
 
   @Field()
@@ -10,9 +10,6 @@ export class Surgery {
 
   @Field()
   doctor: string;
-
-  @Field()
-  tipo: string;
 
   @Field()
   distance: number;
@@ -26,24 +23,12 @@ export class Surgery {
   @Field()
   instrumentator: string;
 
-  @Field((type) => String)
-  startingPoint: {
-    title: string;
-    fullAdress: string;
-  };
+  @Field()
+  startingPoint: string;
 
-  @Field((type) => String)
-  hospital: {
-    title: string;
-    fullAdress: string;
-  };
+  @Field()
+  hospitalName: string;
 
   @Field()
   typeTag: string;
-
-  @Field((type) => String)
-  toll: {
-    totalTolls: number;
-    totalTollsPrice: number;
-  };
 }

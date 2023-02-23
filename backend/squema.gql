@@ -7,12 +7,11 @@ input CreateSurgeryInput {
   date: String!
   distance: Float!
   doctor: String!
-  hospital: [String!]!
+  hospitalName: String!
   hour: String!
   instrumentator: String!
   patient: String!
-  startingPoint: [String!]!
-  toll: [String!]!
+  startingPoint: String!
   typeTag: String!
 }
 
@@ -20,13 +19,12 @@ input EditSurgeryInput {
   date: String!
   distance: Float!
   doctor: String!
-  hospital: [String!]!
+  hospitalName: String!
   hour: String!
   id: ID!
   instrumentator: String!
   patient: String!
-  startingPoint: [String!]!
-  toll: [String!]!
+  startingPoint: String!
   typeTag: String!
 }
 
@@ -45,13 +43,11 @@ type Surgery {
   date: String!
   distance: Float!
   doctor: String!
-  hospital: String!
+  hospitalName: String!
   hour: String!
   id: ID!
   instrumentator: String!
   patient: String!
   startingPoint: String!
-  tipo: String!
-  toll: String!
   typeTag: String!
 }

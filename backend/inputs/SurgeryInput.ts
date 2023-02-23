@@ -1,12 +1,5 @@
 import { Field, InputType, ID } from "type-graphql";
-type Point = {
-  title: string;
-  fullAdress: string;
-};
-type Toll = {
-  totalTolls: number;
-  totalTollsPrice: number;
-};
+
 @InputType()
 export class CreateSurgeryInput {
   @Field()
@@ -27,17 +20,14 @@ export class CreateSurgeryInput {
   @Field()
   instrumentator: string;
 
-  @Field((_type) => [String])
-  startingPoint: Point[];
+  @Field()
+  startingPoint: string;
 
-  @Field((_type) => [String])
-  hospital: Point[];
+  @Field()
+  hospitalName: string;
 
   @Field()
   typeTag: string;
-
-  @Field((_type) => [String])
-  toll: Toll[];
 }
 
 @InputType()
@@ -63,15 +53,12 @@ export class EditSurgeryInput {
   @Field()
   instrumentator: string;
 
-  @Field((_type) => [String])
-  startingPoint: Point[];
+  @Field()
+  startingPoint: string;
 
-  @Field((_type) => [String])
-  hospital: Point[];
+  @Field()
+  hospitalName: string;
 
   @Field()
   typeTag: string;
-
-  @Field((_type) => [String])
-  toll: Toll[];
 }
