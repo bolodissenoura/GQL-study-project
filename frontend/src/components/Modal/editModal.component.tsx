@@ -70,23 +70,24 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                   <C.TextField id="date" type="date" required label="Data" />
                   <C.TextField id="hour" type="time" required label="Hora" />
+
                   <C.TextField
-                    id="hour"
+                    id="Instrumentador"
                     type="select"
                     required
                     label="Instrumentador"
                   />
-                  <C.SelectField
+                  <C.TextField
                     id="partida"
-                    label="Ponto de Partida"
-                    options={fakeData}
-                    placeholder="Minha casa ..."
+                    type="text"
+                    required
+                    label="Starting Point"
                   />
-                  <C.SelectField
-                    id="hospital"
+                  <C.TextField
+                    id="Hospital"
+                    type="text"
+                    required
                     label="Hospital"
-                    options={fakeData}
-                    placeholder="Hospital Vivalle ..."
                   />
                   <C.SelectField
                     id="Tipo"

@@ -4,19 +4,8 @@ export interface SurgeryInterface {
   patient: string;
   instrumentator: string;
   doctor: string;
-  startingPoint: AdressInterface;
-  hospital: AdressInterface;
+  startingPoint: string;
+  hospitalName: string;
   typeTag: string;
   distance: number;
-  toll: TollInterface;
-}
-
-interface AdressInterface {
-  title: string;
-  fullAdress: string;
-}
-
-interface TollInterface {
-  totalTolls: number;
-  totalTollsPrice: number;
 }

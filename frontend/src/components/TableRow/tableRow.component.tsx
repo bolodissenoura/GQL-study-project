@@ -48,21 +48,21 @@ export const TableRow = (props: SurgeryInterface) => {
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <p className="text-gray-700 dark:text-gray-200 text-ellipsis overflow-hidden w-32">
             {" "}
-            {props.startingPoint.title}
+            {props.startingPoint}
           </p>
-          <p className="text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden w-32">
-            {props.startingPoint.fullAdress}
-          </p>
+          {/* <p className="text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden w-32">
+            {props.startingPoint}
+          </p> */}
         </td>
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <p className="text-gray-700 dark:text-gray-200 text-ellipsis overflow-hidden w-32 ">
-            {props.hospital.title}
+            {props.hospitalName}
           </p>
-          <p className="text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden w-32 ">
-            {props.hospital.fullAdress}
-          </p>
+          {/* <p className="text-gray-500 dark:text-gray-400 text-ellipsis overflow-hidden w-32 ">
+            {props.hospitalName}
+          </p> */}
         </td>
-        <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <td className="px-12 py-4 text-sm whitespace-nowrap">
           <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
             {props.typeTag}
           </div>
@@ -75,14 +75,14 @@ export const TableRow = (props: SurgeryInterface) => {
             {props.distance + props.distance} km
           </p>
         </td>
-        <td className="px-4 py-4 text-sm whitespace-nowrap">
+        {/* <td className="px-4 py-4 text-sm whitespace-nowrap">
           <p className="text-gray-700 dark:text-gray-200">
             {props.toll.totalTolls}
           </p>
           <p className="text-gray-500 dark:text-gray-400">
             R$ {props.toll.totalTollsPrice}
           </p>
-        </td>
+        </td> */}
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <button
             onClick={() => console.log("queijo")}

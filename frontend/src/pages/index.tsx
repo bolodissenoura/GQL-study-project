@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Instrumentadores</title>
+        <title>Surgeries Plan</title>
         <meta
           name="description"
           content="Planejamento de cirurgias para instrumentador"
@@ -93,15 +93,14 @@ export default function Home() {
                           <>
                             <C.TableRow
                               key={index}
+                              startingPoint={item.startingPoint}
                               date={item.date}
                               distance={item.distance}
                               doctor={item.doctor}
-                              hospital={item.hospital}
+                              hospitalName={item.hospitalName}
                               hour={item.hour}
                               instrumentator={item.instrumentator}
                               patient={item.patient}
-                              startingPoint={item.hospital}
-                              toll={item.toll}
                               typeTag={item.typeTag}
                             />
                           </>

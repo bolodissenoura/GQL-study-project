@@ -14,61 +14,9 @@ export const fakeDataRows: SurgeryInterface[] = [
     patient: "Ilda Lima",
     instrumentator: "Vinicin Malvadeza",
     doctor: "Daniel Lima",
-    startingPoint: {
-      title: "Minha casa",
-      fullAdress: " Rua francisca de Ferreira, Sao Paulo, 90",
-    },
-    hospital: {
-      title: "Hospital Vivalle",
-      fullAdress: " Rua francisca de Ferreira, Sao Paulo, 90",
-    },
+    hospitalName: "Vivalle",
+    startingPoint: "Paulista Avenue",
     typeTag: "ORT",
     distance: 20,
-    toll: {
-      totalTolls: 3,
-      totalTollsPrice: 15.8,
-    },
-  },
-  {
-    date: "04/02/2023",
-    hour: "9:30",
-    patient: "Ilda Lima",
-    instrumentator: "Vinicin Malvadeza",
-    doctor: "Daniel Lima",
-    startingPoint: {
-      title: "Minha casa",
-      fullAdress: " Rua francisca de Ferreira, Sao Paulo, 90",
-    },
-    hospital: {
-      title: "Hospital Vivalle",
-      fullAdress: " Rua francisca de Ferreira, Sao Paulo, 90",
-    },
-    typeTag: "ORT",
-    distance: 20,
-    toll: {
-      totalTolls: 3,
-      totalTollsPrice: 15.8,
-    },
-  },
-  {
-    date: "04/02/2023",
-    hour: "9:30",
-    patient: "Ilda Lima",
-    instrumentator: "Vinicin Malvadeza",
-    doctor: "Daniel Lima",
-    startingPoint: {
-      title: "Minha casa",
-      fullAdress: " Rua francisca de Ferreira, Sao Paulo, 90",
-    },
-    hospital: {
-      title: "Hospital Vivalle",
-      fullAdress: " Rua francisca de Ferreira, Sao Paulo, 90",
-    },
-    typeTag: "ORT",
-    distance: 20,
-    toll: {
-      totalTolls: 3,
-      totalTollsPrice: 15.8,
-    },
   },
 ];

@@ -6,19 +6,19 @@ export const TableHeader = () => {
         <tr>
           <th scope="col" className="py-3.5 px-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <button className="flex items-center gap-x-3 focus:outline-none">
-              <span>Data / Hora</span>
+              <span>Day / Hour</span>
             </button>
           </th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            Paciente
+            Patient
           </th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Instrumentador</th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Doutor</th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Ponto de Partida</th>
+          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Instrumentator</th>
+          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Doctor</th>
+          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Starting Point</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Hospital</th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Tipo</th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Quilometragem</th>
-          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Pedagio</th>
+          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Tag</th>
+          <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Distance</th>
+          {/* <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Pedagio</th> */}
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Editar</th>
           <th scope="col" className="px-3.5 py-3.5 text-sm font-normal text-left rtl:text-right text-red-500 dark:text-red-400">Deletar</th>
         </tr>
