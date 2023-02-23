@@ -10,7 +10,6 @@ const GET_CLIENTS = gql`
   query {
     Surgeries {
       date
-      distance
       doctor
       hospitalName
       hour
@@ -28,7 +27,7 @@ export default function Home() {
     GET_CLIENTS
   );
 
-  console.log(data?.Surgeries.length);
+  console.log(error);
 
   const [modalEditState, setModalEditState] = React.useState(false);
   function openModalEdit() {
@@ -158,6 +157,7 @@ export default function Home() {
           closeModalDelete={() => setModalEditState(false)}
           modalState={modalEditState}
         />
+        {error ? <C.ToastError title={error?.message} /> : <></>}
       </main>
     </>
   );

@@ -8,5 +8,4 @@ export interface SurgeryInterface {
   startingPoint: string;
   hospitalName: string;
   typeTag: string;
-  // distance: number;
 }
