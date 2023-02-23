@@ -1,4 +1,8 @@
-import { OptionsInterface, SurgeryInterface } from "./interfaces";
+import {
+  OptionsInterface,
+  SurgeryInterface,
+  TagsInterface,
+} from "./interfaces";
 
 export const fakeData: OptionsInterface[] = [
   { id: "xaxsxs", label: "Daniel" },
@@ -18,5 +22,23 @@ export const fakeDataRows: SurgeryInterface[] = [
     startingPoint: "Paulista Avenue",
     typeTag: "ORT",
     distance: 20,
+  },
+];
+
+export const fakeDataTags: TagsInterface[] = [
+  {
+    title: "ORT",
+    color: "red",
+    id: "elonmusk69420",
+  },
+  {
+    title: "ATM",
+    color: "green",
+    id: "elonmusk6820",
+  },
+  {
+    title: "REC",
+    color: "blue",
+    id: "elonmusk67420",
   },
 ];

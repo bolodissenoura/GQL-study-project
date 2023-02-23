@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
-import { fakeDataRows } from "@/fakeData";
-import { SurgeryInterface } from "@/interfaces";
+import { fakeDataRows, fakeDataTags } from "@/fakeData";
+import { SurgeryInterface, TagsInterface } from "@/interfaces";
 
 export default function Home() {
   const ref = React.useRef();
@@ -38,24 +38,28 @@ export default function Home() {
                     d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-
-                <span>Add cirurgia</span>
+                <span>Add surgery</span>
               </button>
             </div>
           </div>
           <div className="mt-6 md:flex md:items-center md:justify-between">
             <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
               <button className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm dark:bg-gray-800 dark:text-gray-300">
-                View all
+                View all tags
               </button>
 
-              <button className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                Monitored
-              </button>
-
-              <button className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                Unmonitored
-              </button>
+              {fakeDataTags.map((item: TagsInterface) => (
+                <>
+                  <button
+                    key={item.id}
+                    className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                    <div
+                      className={`inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800 text-${item.color}-500`}>
+                      {item.title}
+                    </div>
+                  </button>
+                </>
+              ))}
             </div>
 
             <div className="relative flex items-center mt-4 md:mt-0">
