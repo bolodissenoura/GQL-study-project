@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
-import { fakeDataRows, fakeDataTags } from "@/fakeData";
+import * as Modal from "@/components/Modal";
+import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
 import { gql, useQuery } from "@apollo/client";
 
@@ -29,7 +30,10 @@ export default function Home() {
 
   console.log(data?.Surgeries);
 
-  const ref = React.useRef();
+  const [modalEditState, setModalEditState] = React.useState(false);
+  function openModalEdit() {
+    setModalEditState(true);
+  }
   return (
     <>
       <Head>
@@ -46,8 +50,7 @@ export default function Home() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex items-center mt-4 gap-x-3">
               <button
-                // @ts-ignore
-                onClick={() => ref.current.openModal()}
+                onClick={() => openModalEdit()}
                 className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +142,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <C.EditModal ref={ref} />
+        <Modal.EditModal
+          closeModalDelete={() => setModalEditState(false)}
+          modalState={modalEditState}
+        />
       </main>
     </>
   );

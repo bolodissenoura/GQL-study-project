@@ -3,45 +3,23 @@ import { fakeData } from "@/fakeData";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
+import { customStyles } from "./modal.styles";
 
 interface EditModalInterface {
   titleModal?: string;
+  modalState: boolean;
+  closeModalDelete: () => void;
 }
 
-export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  React.useImperativeHandle(ref, () => ({
-    openModal() {
-      setIsOpen(true);
-    },
-  }));
-
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      backgroundColor: "transparent",
-      border: "none",
-      transform: "translate(-50%, -50%)",
-    },
-  };
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+export function EditModal(props: EditModalInterface) {
   return (
     <>
       <form>
         <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
+          isOpen={props.modalState}
+          onRequestClose={props.closeModalDelete}
           style={customStyles}
-          contentLabel="Example Modal">
+          contentLabel="Edit modal">
           <div className="relative w-full h-full max-w-2xl md:h-auto ">
             <div className="relative rounded-lg shadow bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -49,7 +27,7 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
                   {props.titleModal ?? "Modal de ação"}
                 </h3>
                 <button
-                  onClick={() => closeModal()}
+                  onClick={() => props.closeModalDelete()}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-hide="defaultModal">
@@ -105,7 +83,7 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
                   Salvar
                 </button>
                 <button
-                  onClick={() => closeModal()}
+                  onClick={() => props.closeModalDelete()}
                   data-modal-hide="defaultModal"
                   type="button"
                   className="text-gray-500 w-1/2 bg-white hover:bg-gray-100  rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
@@ -118,4 +96,4 @@ export const EditModal = React.forwardRef((props: EditModalInterface, ref) => {
       </form>
     </>
   );
-});
+}
