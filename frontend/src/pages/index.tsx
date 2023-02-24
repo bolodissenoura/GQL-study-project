@@ -4,34 +4,44 @@ import * as C from "@/components";
 import * as Modal from "@/components/Modal";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
-import { gql, useQuery } from "@apollo/client";
-
-const GET_CLIENTS = gql`
-  query {
-    Surgeries {
-      date
-      doctor
-      hospitalName
-      hour
-      id
-      instrumentator
-      startingPoint
-      typeTag
-      patient
-    }
-  }
-`;
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { DELETE_SURGERY, GET_SURGERY } from "./api/services";
+import { client } from "@/lib/apollo";
 
 export default function Home() {
   const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
-    GET_CLIENTS
+    GET_SURGERY
   );
 
-  console.log(error);
+  const [deleteSurgery, deleteSurgeryInfo] = useMutation<
+    {
+      deleteSurgery: string;
+    },
+    { deleteSurgeryId: string }
+  >(DELETE_SURGERY);
 
   const [modalEditState, setModalEditState] = React.useState(false);
   function openModalEdit() {
     setModalEditState(true);
+  }
+
+  async function confirmDeleteSurgery(id: string) {
+    await deleteSurgery({
+      variables: {
+        deleteSurgeryId: id,
+      },
+      update: (cache, { data }) => {
+        const surgeriesResponse = client.readQuery({ query: GET_SURGERY });
+        cache.writeQuery({
+          query: GET_SURGERY,
+          data: {
+            Surgeries: surgeriesResponse?.Surgeries.filter(
+              (surgery: any) => surgery.id !== id
+            ),
+          },
+        });
+      },
+    });
   }
 
   return (
@@ -117,6 +127,7 @@ export default function Home() {
                             <>
                               <C.TableRow
                                 key={item.id}
+                                id={item.id}
                                 startingPoint={item.startingPoint}
                                 date={item.date}
                                 doctor={item.doctor}
@@ -125,6 +136,9 @@ export default function Home() {
                                 instrumentator={item.instrumentator}
                                 patient={item.patient}
                                 typeTag={item.typeTag}
+                                confirmDeleteSurgery={() =>
+                                  confirmDeleteSurgery(item.id)
+                                }
                               />
                             </>
                           ))}

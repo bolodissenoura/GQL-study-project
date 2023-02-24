@@ -1,5 +1,5 @@
 export interface SurgeryInterface {
-  id?: string;
+  id: string;
   date: string;
   hour: string;
   patient: string;

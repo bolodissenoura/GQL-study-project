@@ -3,10 +3,20 @@ import { SurgeryInterface } from "@/interfaces";
 import React from "react";
 import * as Modal from "@/components/Modal";
 
-export const TableRow = (props: SurgeryInterface) => {
+interface TableRowInterface {
+  confirmDeleteSurgery: () => void;
+}
+
+export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
   const [modalDeleteState, setModalDeleteState] = React.useState(false);
+
   function openModalDelete() {
     setModalDeleteState(true);
+  }
+
+  function confirmModalDelete() {
+    props.confirmDeleteSurgery();
+    setModalDeleteState(false);
   }
 
   return (
@@ -116,6 +126,7 @@ export const TableRow = (props: SurgeryInterface) => {
       <Modal.DeleteModal
         closeModalDelete={() => setModalDeleteState(false)}
         modalState={modalDeleteState}
+        confirmModalDelete={() => confirmModalDelete()}
       />
     </>
   );
