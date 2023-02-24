@@ -8,6 +8,11 @@ interface TableRowInterface {
 }
 
 export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
+  const [modalEditState, setModalEditState] = React.useState(false);
+  function openModalEdit() {
+    setModalEditState(true);
+  }
+
   const [modalDeleteState, setModalDeleteState] = React.useState(false);
 
   function openModalDelete() {
@@ -95,7 +100,7 @@ export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
         </td> */}
         <td className="px-4 py-4 text-sm whitespace-nowrap">
           <button
-            onClick={() => console.log("queijo")}
+            onClick={() => openModalEdit()}
             className="text-gray-500 dark:text-gray-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -127,6 +132,11 @@ export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
         closeModalDelete={() => setModalDeleteState(false)}
         modalState={modalDeleteState}
         confirmModalDelete={() => confirmModalDelete()}
+      />
+      <Modal.EditModal
+        closeModalDelete={() => setModalEditState(false)}
+        modalState={modalEditState}
+        currentId={props.id}
       />
     </>
   );

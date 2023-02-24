@@ -5,14 +5,16 @@ import * as Modal from "@/components/Modal";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { DELETE_SURGERY, GET_SURGERY } from "./api/services";
+import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 
 export default function Home() {
+  // READ DATA
   const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
-    GET_SURGERY
+    GET_SURGERIES
   );
 
+  // DELETE DATA
   const [deleteSurgery, deleteSurgeryInfo] = useMutation<
     {
       deleteSurgery: string;
@@ -20,20 +22,15 @@ export default function Home() {
     { deleteSurgeryId: string }
   >(DELETE_SURGERY);
 
-  const [modalEditState, setModalEditState] = React.useState(false);
-  function openModalEdit() {
-    setModalEditState(true);
-  }
-
   async function confirmDeleteSurgery(id: string) {
     await deleteSurgery({
       variables: {
         deleteSurgeryId: id,
       },
       update: (cache, { data }) => {
-        const surgeriesResponse = client.readQuery({ query: GET_SURGERY });
+        const surgeriesResponse = client.readQuery({ query: GET_SURGERIES });
         cache.writeQuery({
-          query: GET_SURGERY,
+          query: GET_SURGERIES,
           data: {
             Surgeries: surgeriesResponse?.Surgeries.filter(
               (surgery: any) => surgery.id !== id
@@ -43,6 +40,8 @@ export default function Home() {
       },
     });
   }
+
+  // EDIT DATA
 
   return (
     <>
@@ -60,11 +59,11 @@ export default function Home() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex items-center mt-4 gap-x-3">
               <C.DefaultButton
-                onClick={() => openModalEdit()}
+                onClick={() => console.log("arroz")}
                 text="Add surgery"
               />
               <C.DefaultButton
-                onClick={() => openModalEdit()}
+                onClick={() => console.log("arroz")}
                 disabled
                 text="Add TAG"
               />
@@ -158,7 +157,7 @@ export default function Home() {
 
                 <div className="flex items-center ml-8 gap-x-3">
                   <C.DefaultButton
-                    onClick={() => openModalEdit()}
+                    onClick={() => console.log("arroz")}
                     text="Add surgery"
                   />
                 </div>
@@ -167,10 +166,6 @@ export default function Home() {
           )}
         </section>
 
-        <Modal.EditModal
-          closeModalDelete={() => setModalEditState(false)}
-          modalState={modalEditState}
-        />
         {error ? <C.ToastError title={error?.message} /> : <></>}
       </main>
     </>

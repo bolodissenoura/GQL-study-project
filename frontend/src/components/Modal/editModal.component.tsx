@@ -1,4 +1,8 @@
 import { fakeDataTags } from "@/fakeData";
+import { SurgeryInterface } from "@/interfaces";
+import { client } from "@/lib/apollo";
+import { EDIT_SURGERY, GET_SURGERIES, GET_SURGERY } from "@/pages/api/services";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
@@ -10,7 +14,110 @@ interface EditModalInterface {
   closeModalDelete: () => void;
 }
 
-export function EditModal(props: EditModalInterface) {
+interface InfoInterface {
+  currentId: string;
+}
+
+export function EditModal(props: EditModalInterface & InfoInterface) {
+  const [getSurgery, getSurgeryInfo] = useLazyQuery<
+    { Surgery: SurgeryInterface },
+    { surgeryId: string }
+  >(GET_SURGERY);
+
+  const [values, setValues] = React.useState({
+    id: "",
+    date: "",
+    doctor: "",
+    hospitalName: "",
+    hour: "",
+    instrumentator: "",
+    startingPoint: "",
+    typeTag: "ORT",
+    patient: "",
+  });
+
+  React.useEffect(() => {
+    async function getValues() {
+      const currentSurgery = await getSurgery({
+        variables: { surgeryId: props.currentId },
+      });
+
+      console.log(currentSurgery?.data?.Surgery);
+
+      setValues({
+        id: currentSurgery.data?.Surgery.id,
+        date: currentSurgery.data?.Surgery.date,
+        doctor: currentSurgery.data?.Surgery.doctor,
+        hospitalName: currentSurgery.data?.Surgery.hospitalName,
+        hour: currentSurgery.data?.Surgery.hour,
+        instrumentator: currentSurgery.data?.Surgery.instrumentator,
+        startingPoint: currentSurgery.data?.Surgery.startingPoint,
+        typeTag: "ORT",
+        patient: currentSurgery.data?.Surgery.patient,
+      } as SurgeryInterface);
+    }
+    getValues();
+  }, []);
+
+  function handleChangeValues(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [event.target.id]: event.target.value,
+    }));
+  }
+
+  const [editSurgery, editSurgeryInfo] = useMutation<
+    { editSurgery: SurgeryInterface },
+    { editSurgeryObject: SurgeryInterface }
+  >(EDIT_SURGERY);
+
+  async function handleEditSurgery() {
+    await editSurgery({
+      variables: {
+        editSurgeryObject: values,
+      },
+      update: (cache, { data }) => {
+        const surgeriesReponse = client.readQuery({
+          query: GET_SURGERIES,
+        });
+
+        cache.writeQuery({
+          query: GET_SURGERY,
+          data: {
+            Surgeries: surgeriesReponse?.clients.map(
+              (Surgery: SurgeryInterface) => {
+                if (Surgery.id === data?.editSurgery.id)
+                  return {
+                    id: data?.editSurgery.id,
+                    date: data?.editSurgery.date,
+                    doctor: data?.editSurgery.doctor,
+                    hospitalName: data?.editSurgery.hospitalName,
+                    hour: data?.editSurgery.hour,
+                    instrumentator: data?.editSurgery.instrumentator,
+                    startingPoint: data?.editSurgery.startingPoint,
+                    typeTag: "ORT",
+                    patient: data?.editSurgery.patient,
+                  };
+                return Surgery;
+              }
+            ),
+          },
+        });
+      },
+    });
+    props.closeModalDelete();
+    setValues({
+      id: "",
+      date: "",
+      doctor: "",
+      hospitalName: "",
+      hour: "",
+      instrumentator: "",
+      startingPoint: "",
+      typeTag: "ORT",
+      patient: "",
+    });
+  }
   return (
     <>
       <form>
@@ -45,22 +152,42 @@ export function EditModal(props: EditModalInterface) {
               </div>
               <div className="p-6 space-y-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <C.TextField id="date" type="date" required label="Data" />
-                  <C.TextField id="hour" type="time" required label="Hora" />
+                  <C.TextField
+                    onChange={() => handleChangeValues}
+                    value={values.date}
+                    id="date"
+                    type="date"
+                    required
+                    label="Data"
+                  />
+                  <C.TextField
+                    onChange={() => handleChangeValues}
+                    value={values.hour}
+                    id="hour"
+                    type="time"
+                    required
+                    label="Hora"
+                  />
 
                   <C.TextField
+                    onChange={() => handleChangeValues}
+                    value={values.instrumentator}
                     id="instrumentator"
                     type="select"
                     required
                     label="Instrumentator"
                   />
                   <C.TextField
+                    onChange={() => handleChangeValues}
+                    value={values.startingPoint}
                     id="starting-point"
                     type="text"
                     required
                     label="Starting Point"
                   />
                   <C.TextField
+                    onChange={() => handleChangeValues}
+                    value={values.hospitalName}
                     id="Hospital"
                     type="text"
                     required
