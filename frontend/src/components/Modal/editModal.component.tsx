@@ -41,9 +41,6 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
       const currentSurgery = await getSurgery({
         variables: { surgeryId: props.currentId },
       });
-
-      console.log(currentSurgery?.data?.Surgery);
-
       setValues({
         id: currentSurgery.data?.Surgery.id,
         date: currentSurgery.data?.Surgery.date,
@@ -57,7 +54,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
       } as SurgeryInterface);
     }
     getValues();
-  }, []);
+  }, [props.modalState, props.currentId, getSurgery]);
 
   function handleChangeValues(event: React.ChangeEvent<HTMLInputElement>) {
     setValues((prevValues) => ({
@@ -118,14 +115,18 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
       patient: "",
     });
   }
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    handleEditSurgery();
+  }
   return (
     <>
-      <form>
-        <Modal
-          isOpen={props.modalState}
-          onRequestClose={props.closeModalDelete}
-          style={customStyles}
-          contentLabel="Edit modal">
+      <Modal
+        isOpen={props.modalState}
+        onRequestClose={props.closeModalDelete}
+        style={customStyles}
+        contentLabel="Edit modal">
+        <form onSubmit={handleSubmit}>
           <div className="relative w-full h-full max-w-2xl md:h-auto ">
             <div className="relative rounded-lg shadow bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -173,9 +174,17 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
                     onChange={() => handleChangeValues}
                     value={values.instrumentator}
                     id="instrumentator"
-                    type="select"
+                    type="text"
                     required
                     label="Instrumentator"
+                  />
+                  <C.TextField
+                    onChange={() => handleChangeValues}
+                    value={values.doctor}
+                    id="doctor"
+                    type="text"
+                    required
+                    label="Doctor"
                   />
                   <C.TextField
                     onChange={() => handleChangeValues}
@@ -218,8 +227,8 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
               </div>
             </div>
           </div>
-        </Modal>
-      </form>
+        </form>
+      </Modal>
     </>
   );
 }
