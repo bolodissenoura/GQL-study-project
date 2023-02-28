@@ -79,16 +79,14 @@ export default function Home() {
               </button>
 
               {fakeDataTags.map((item: TagsInterface) => (
-                <>
-                  <button
-                    key={item.id}
-                    className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                    <div
-                      className={`inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800 text-${item.color}-500`}>
-                      {item.title}
-                    </div>
-                  </button>
-                </>
+                <button
+                  key={item.id}
+                  className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                  <div
+                    className={`inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800 text-${item.color}-500`}>
+                    {item.title}
+                  </div>
+                </button>
               ))}
             </div>
 
@@ -125,24 +123,22 @@ export default function Home() {
                       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
                         <C.TableHeader />
                         <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                          {data?.Surgeries?.map((item: SurgeryInterface) => (
-                            <>
-                              <C.TableRow
-                                key={item.id}
-                                id={item.id}
-                                startingPoint={item.startingPoint}
-                                date={item.date}
-                                doctor={item.doctor}
-                                hospitalName={item.hospitalName}
-                                hour={item.hour}
-                                instrumentator={item.instrumentator}
-                                patient={item.patient}
-                                typeTag={item.typeTag}
-                                confirmDeleteSurgery={() =>
-                                  confirmDeleteSurgery(item.id)
-                                }
-                              />
-                            </>
+                          {data?.Surgeries?.map((item: SurgeryInterface, index: number) => (
+                            <C.TableRow
+                              key={index}
+                              id={item.id}
+                              startingPoint={item.startingPoint}
+                              date={item.date}
+                              doctor={item.doctor}
+                              hospitalName={item.hospitalName}
+                              hour={item.hour}
+                              instrumentator={item.instrumentator}
+                              patient={item.patient}
+                              typeTag={item.typeTag}
+                              confirmDeleteSurgery={() =>
+                                confirmDeleteSurgery(item.id)
+                              }
+                            />
                           ))}
                         </tbody>
                       </table>
