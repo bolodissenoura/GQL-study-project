@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
-import * as Modal from "@/components/Modal";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
 import { gql, useMutation, useQuery } from "@apollo/client";
