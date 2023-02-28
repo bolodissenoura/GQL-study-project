@@ -1,8 +1,5 @@
 import { fakeDataTags } from "@/fakeData";
-import { SurgeryInterface } from "@/interfaces";
-import { client } from "@/lib/apollo";
-import { EDIT_SURGERY, GET_SURGERIES, GET_SURGERY } from "@/pages/api/services";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { Form } from "@unform/web";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
@@ -29,7 +26,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
         onRequestClose={props.closeModalDelete}
         style={customStyles}
         contentLabel="Edit modal">
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <div className="relative w-full h-full max-w-2xl md:h-auto ">
             <div className="relative rounded-lg shadow bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -56,51 +53,29 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
               </div>
               <div className="p-6 space-y-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
-                    id="date"
-                    type="date"
-                    required
-                    label="Data"
-                  />
-                  <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
-                    id="hour"
-                    type="time"
-                    required
-                    label="Hora"
-                  />
+                  <C.TextField id="date" type="date" required label="Data" />
+                  <C.TextField id="hour" type="time" required label="Hora" />
 
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
                     id="instrumentator"
                     type="text"
                     required
                     label="Instrumentator"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
                     id="doctor"
                     type="text"
                     required
                     label="Doctor"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
                     id="starting-point"
                     type="text"
                     required
                     label="Starting Point"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
-                    id="Hospital"
+                    id="hospital"
                     type="text"
                     required
                     label="Hospital"
@@ -131,7 +106,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
               </div>
             </div>
           </div>
-        </form>
+        </Form>
       </Modal>
     </>
   );
