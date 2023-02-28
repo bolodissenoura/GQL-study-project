@@ -9,6 +9,10 @@ import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 
 export default function Home() {
+  const [modalCreateState, setModalCreateState] = React.useState(false);
+  function openModalCreate() {
+    setModalCreateState(true);
+  }
   // READ DATA
   const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
     GET_SURGERIES
@@ -59,11 +63,11 @@ export default function Home() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex items-center mt-4 gap-x-3">
               <C.DefaultButton
-                onClick={() => console.log("arroz")}
+                onClick={() => openModalCreate()}
                 text="Add surgery"
               />
               <C.DefaultButton
-                onClick={() => console.log("arroz")}
+                onClick={() => openModalCreate()}
                 disabled
                 text="Add TAG"
               />
@@ -157,7 +161,7 @@ export default function Home() {
 
                 <div className="flex items-center ml-8 gap-x-3">
                   <C.DefaultButton
-                    onClick={() => console.log("arroz")}
+                    onClick={() => openModalCreate()}
                     text="Add surgery"
                   />
                 </div>
@@ -165,6 +169,11 @@ export default function Home() {
             </>
           )}
         </section>
+
+        <C.CreateModal
+          closeModalDelete={() => setModalCreateState(false)}
+          modalState={modalCreateState}
+        />
 
         {error ? <C.ToastError title={error?.message} /> : <></>}
       </main>

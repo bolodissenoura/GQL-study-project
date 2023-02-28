@@ -1,26 +1,84 @@
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface } from "@/interfaces";
 import { client } from "@/lib/apollo";
-import { EDIT_SURGERY, GET_SURGERIES, GET_SURGERY } from "@/pages/api/services";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { ADD_SURGERY, GET_SURGERIES, GET_SURGERY } from "@/pages/api/services";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
 import { customStyles } from "./modal.styles";
 
-interface EditModalInterface {
+interface CreateModalInterface {
   titleModal?: string;
   modalState: boolean;
   closeModalDelete: () => void;
 }
 
-interface InfoInterface {
-  currentId: string;
-}
+export function CreateModal(props: CreateModalInterface) {
+  const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
+    GET_SURGERIES
+  );
+  const [values, setValues] = React.useState({
+    id: "",
+    date: "",
+    doctor: "",
+    hospitalName: "",
+    hour: "",
+    instrumentator: "",
+    startingPoint: "",
+    typeTag: "ORT",
+    patient: "",
+  });
 
-export function EditModal(props: EditModalInterface & InfoInterface) {
+  const [CreateSurgery, CreateSurgeryInfo] = useMutation<
+    { CreateSurgery: SurgeryInterface },
+    { CreateSurgeryObject: SurgeryInterface }
+  >(ADD_SURGERY);
+  React.useEffect(() => {
+    console.log(values);
+  }, [values]);
+
+  async function handleCreateSurgery() {
+    await CreateSurgery({
+      variables: {
+        CreateSurgeryObject: values,
+      },
+      update: (cache, { data }) => {
+        const surgeriesReponse = client.readQuery({
+          query: GET_SURGERY,
+        });
+
+        console.log(surgeriesReponse);
+
+        cache.writeQuery({
+          query: GET_SURGERY,
+          data: {
+            Surgeries: surgeriesReponse?.clients.map(
+              (Surgery: SurgeryInterface) => {
+                if (Surgery.id === data?.CreateSurgery.id)
+                  return {
+                    id: data?.CreateSurgery.id,
+                    date: data?.CreateSurgery.date,
+                    doctor: data?.CreateSurgery.doctor,
+                    hospitalName: data?.CreateSurgery.hospitalName,
+                    hour: data?.CreateSurgery.hour,
+                    instrumentator: data?.CreateSurgery.instrumentator,
+                    startingPoint: data?.CreateSurgery.startingPoint,
+                    typeTag: "ORT",
+                    patient: data?.CreateSurgery.patient,
+                  };
+                return Surgery;
+              }
+            ),
+          },
+        });
+      },
+    });
+    props.closeModalDelete();
+  }
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    handleCreateSurgery();
   }
   return (
     <>
@@ -28,7 +86,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
         isOpen={props.modalState}
         onRequestClose={props.closeModalDelete}
         style={customStyles}
-        contentLabel="Edit modal">
+        contentLabel="Create modal">
         <form onSubmit={handleSubmit}>
           <div className="relative w-full h-full max-w-2xl md:h-auto ">
             <div className="relative rounded-lg shadow bg-gray-700">
@@ -57,16 +115,20 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
               <div className="p-6 space-y-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
+                    onChange={(event: any) =>
+                      console.log(event)
+                    }
+                    value={values?.date}
                     id="date"
                     type="date"
                     required
                     label="Data"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
+                    onChange={(event: any) =>
+                      setValues({ ...values, hour: event?.target.value })
+                    }
+                    value={values?.hour}
                     id="hour"
                     type="time"
                     required
@@ -74,39 +136,52 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
                   />
 
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
+                    onChange={(event: any) =>
+                      setValues({
+                        ...values,
+                        instrumentator: event?.target.value,
+                      })
+                    }
+                    value={values?.instrumentator}
                     id="instrumentator"
                     type="text"
                     required
                     label="Instrumentator"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
+                    onChange={(event: any) =>
+                      setValues({ ...values, doctor: event?.target.value })
+                    }
+                    value={values?.doctor}
                     id="doctor"
                     type="text"
                     required
                     label="Doctor"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
+                    onChange={(event: any) =>
+                      setValues({ ...values, id: event?.target.value })
+                    }
+                    value={values?.startingPoint}
                     id="starting-point"
                     type="text"
                     required
                     label="Starting Point"
                   />
                   <C.TextField
-                    onChange={() => console.log("rros")}
-                    value={"oi"}
-                    id="Hospital"
+                    onChange={(event: any) =>
+                      setValues({ ...values, hospitalName: event?.target.value })
+                    }
+                    value={values?.hospitalName}
+                    id="hospitalName"
                     type="text"
                     required
                     label="Hospital"
                   />
                   <C.SelectField
-                    onChange={() => console.log("oi")}
+                    onChange={(event: any) =>
+                      setValues({ ...values, typeTag: event?.target.value })
+                    }
                     id="Tag"
                     label="Tag"
                     options={fakeDataTags}

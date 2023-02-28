@@ -59,7 +59,6 @@ export const ADD_SURGERY = gql`
       hour
       instrumentator
       startingPoint
-      id
     }
   }
 `;

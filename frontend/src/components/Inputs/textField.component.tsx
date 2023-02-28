@@ -7,7 +7,7 @@ interface TextFieldInterface {
   type?: string;
   required?: boolean;
   value: string;
-  onChange: () => void;
+  onChange: any;
 }
 
 export function TextField(props: TextFieldInterface) {
