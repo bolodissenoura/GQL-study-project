@@ -177,7 +177,7 @@ export default function Home() {
           closeModalEdit={() =>
             setModalEditState({
               open: false,
-              isEdit: true,
+              isEdit: false,
               currentId: "",
             })
           }
