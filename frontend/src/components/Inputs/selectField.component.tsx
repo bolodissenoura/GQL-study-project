@@ -22,9 +22,9 @@ export function SelectField(props: SelectFieldInterface) {
         id={props.id}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         <option selected>{props.placeholder ?? "Selecione uma opção"}</option>
-        {props.options.map((item: OptionsInterface) => (
+        {props.options.map((item: OptionsInterface, index: number) => (
           <>
-            <option key={item.id} value={item.id}>
+            <option key={index} defaultValue={item.id}>
               {item.title}
             </option>
           </>
