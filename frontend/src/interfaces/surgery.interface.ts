@@ -9,3 +9,13 @@ export interface SurgeryInterface {
   hospitalName: string;
   typeTag: string;
 }
+export interface SingleSurgeryInterface {
+  date: string;
+  hour: string;
+  patient: string;
+  instrumentator: string;
+  doctor: string;
+  startingPoint: string;
+  hospitalName: string;
+  typeTag: string;
+}
