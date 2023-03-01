@@ -1,4 +1,7 @@
 import { fakeDataTags } from "@/fakeData";
+import { GET_SURGERY } from "@/pages/api/services";
+import { SingleSurgeryInterface, SurgeryInterface } from "@/interfaces";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { Form } from "@unform/web";
 import React from "react";
 import Modal from "react-modal";
@@ -7,26 +10,71 @@ import { customStyles } from "./modal.styles";
 
 interface EditModalInterface {
   titleModal?: string;
-  modalState: boolean;
-  closeModalDelete: () => void;
+  closeModalEdit: () => void;
 }
 
 interface InfoInterface {
-  currentId: string;
+  info: {
+    open: boolean;
+    isEdit: boolean;
+    currentId: string;
+  };
 }
 
 export function EditModal(props: EditModalInterface & InfoInterface) {
+  const [getSurgery, getSurgeryInfo] = useLazyQuery<
+    { surgery: SingleSurgeryInterface },
+    { surgeryId: string }
+  >(GET_SURGERY);
+  console.log(`${getSurgery}🔥`);
+
+  const [initialValues, setInitialValues] = React.useState<SurgeryInterface>({
+    id: "",
+    date: "",
+    doctor: "",
+    hospitalName: "",
+    hour: "",
+    instrumentator: "",
+    startingPoint: "",
+    typeTag: "ORT",
+    patient: "",
+  });
+
+  React.useEffect(() => {
+    if (!props.info.isEdit) return;
+
+    async function getValues() {
+      const currentSurgery = await getSurgery({
+        variables: { surgeryId: props.info.currentId },
+      });
+
+      setInitialValues({
+        id: props.info.currentId,
+        date: currentSurgery.data?.surgery?.date || "",
+        doctor: currentSurgery.data?.surgery?.doctor || "",
+        hospitalName: currentSurgery.data?.surgery?.hospitalName || "",
+        hour: currentSurgery.data?.surgery?.hour || "",
+        instrumentator: currentSurgery.data?.surgery?.instrumentator || "",
+        startingPoint: currentSurgery.data?.surgery?.startingPoint || "",
+        typeTag: "ORT",
+        patient: currentSurgery.data?.surgery?.patient || "",
+      });
+    }
+    getValues();
+  }, [getSurgery, props.info]);
+
   function handleSubmit(data: any) {
     console.log(data);
+    props.closeModalEdit();
   }
   return (
     <>
       <Modal
-        isOpen={props.modalState}
-        onRequestClose={props.closeModalDelete}
+        isOpen={props.info.open}
+        onRequestClose={props.closeModalEdit}
         style={customStyles}
         contentLabel="Edit modal">
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} initialData={initialValues}>
           <div className="relative w-full h-full max-w-2xl md:h-auto ">
             <div className="relative rounded-lg shadow bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -34,7 +82,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
                   {props.titleModal ?? "Modal de ação"}
                 </h3>
                 <button
-                  onClick={() => props.closeModalDelete()}
+                  onClick={() => props.closeModalEdit()}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-hide="defaultModal">
@@ -97,7 +145,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
                   Salvar
                 </button>
                 <button
-                  onClick={() => props.closeModalDelete()}
+                  onClick={() => props.closeModalEdit()}
                   data-modal-hide="defaultModal"
                   type="button"
                   className="text-gray-500 w-1/2 bg-white hover:bg-gray-100  rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
