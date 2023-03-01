@@ -16,8 +16,8 @@ interface InfoInterface {
 }
 
 export function EditModal(props: EditModalInterface & InfoInterface) {
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function handleSubmit(data: any) {
+    console.log(data);
   }
   return (
     <>
@@ -53,29 +53,29 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
               </div>
               <div className="p-6 space-y-6">
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
-                  <C.TextField id="date" type="date" required label="Data" />
-                  <C.TextField id="hour" type="time" required label="Hora" />
+                  <C.TextField name="date" type="date" required label="Data" />
+                  <C.TextField name="hour" type="time" required label="Hora" />
 
                   <C.TextField
-                    id="instrumentator"
+                    name="instrumentator"
                     type="text"
                     required
                     label="Instrumentator"
                   />
                   <C.TextField
-                    id="doctor"
+                    name="doctor"
                     type="text"
                     required
                     label="Doctor"
                   />
                   <C.TextField
-                    id="starting-point"
+                    name="starting-point"
                     type="text"
                     required
                     label="Starting Point"
                   />
                   <C.TextField
-                    id="hospital"
+                    name="hospital"
                     type="text"
                     required
                     label="Hospital"
