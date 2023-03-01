@@ -8,9 +8,16 @@ import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 
 export default function Home() {
-  const [modalCreateState, setModalCreateState] = React.useState(false);
+  const [modalEditState, setModalEditState] = React.useState({
+    open: false,
+    isEdit: false,
+    currentId: "",
+  });
   function openModalCreate() {
-    setModalCreateState(true);
+    setModalEditState({ open: true, isEdit: false, currentId: "" });
+  }
+  function openModalEdit(id: string) {
+    setModalEditState({ open: true, isEdit: true, currentId: id });
   }
   // READ DATA
   const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
@@ -43,8 +50,6 @@ export default function Home() {
       },
     });
   }
-
-  // EDIT DATA
 
   return (
     <>
@@ -123,23 +128,25 @@ export default function Home() {
                       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
                         <C.TableHeader />
                         <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                          {data?.Surgeries?.map((item: SurgeryInterface, index: number) => (
-                            <C.TableRow
-                              key={index}
-                              id={item.id}
-                              startingPoint={item.startingPoint}
-                              date={item.date}
-                              doctor={item.doctor}
-                              hospitalName={item.hospitalName}
-                              hour={item.hour}
-                              instrumentator={item.instrumentator}
-                              patient={item.patient}
-                              typeTag={item.typeTag}
-                              confirmDeleteSurgery={() =>
-                                confirmDeleteSurgery(item.id)
-                              }
-                            />
-                          ))}
+                          {data?.Surgeries?.map(
+                            (item: SurgeryInterface, index: number) => (
+                              <C.TableRow
+                                key={index}
+                                id={item.id}
+                                startingPoint={item.startingPoint}
+                                date={item.date}
+                                doctor={item.doctor}
+                                hospitalName={item.hospitalName}
+                                hour={item.hour}
+                                instrumentator={item.instrumentator}
+                                patient={item.patient}
+                                typeTag={item.typeTag}
+                                confirmDeleteSurgery={() =>
+                                  confirmDeleteSurgery(item.id)
+                                }
+                              />
+                            )
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -165,9 +172,15 @@ export default function Home() {
           )}
         </section>
 
-        <C.CreateModal
-          closeModalDelete={() => setModalCreateState(false)}
-          modalState={modalCreateState}
+        <C.EditModal
+          info={modalEditState}
+          closeModalEdit={() =>
+            setModalEditState({
+              open: false,
+              isEdit: true,
+              currentId: "",
+            })
+          }
         />
 
         {error ? <C.ToastError title={error?.message} /> : <></>}
