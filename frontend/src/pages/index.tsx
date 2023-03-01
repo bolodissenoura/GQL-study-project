@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
-import * as Modal from "@/components/Modal";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
 import { gql, useMutation, useQuery } from "@apollo/client";
@@ -9,6 +8,17 @@ import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 
 export default function Home() {
+  const [modalEditState, setModalEditState] = React.useState({
+    open: false,
+    isEdit: false,
+    currentId: "",
+  });
+  function openModalCreate() {
+    setModalEditState({ open: true, isEdit: false, currentId: "" });
+  }
+  function openModalEdit(id: string) {
+    setModalEditState({ open: true, isEdit: true, currentId: id });
+  }
   // READ DATA
   const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
     GET_SURGERIES
@@ -41,8 +51,6 @@ export default function Home() {
     });
   }
 
-  // EDIT DATA
-
   return (
     <>
       <Head>
@@ -59,11 +67,11 @@ export default function Home() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex items-center mt-4 gap-x-3">
               <C.DefaultButton
-                onClick={() => console.log("arroz")}
+                onClick={() => openModalCreate()}
                 text="Add surgery"
               />
               <C.DefaultButton
-                onClick={() => console.log("arroz")}
+                onClick={() => openModalCreate()}
                 disabled
                 text="Add TAG"
               />
@@ -76,16 +84,14 @@ export default function Home() {
               </button>
 
               {fakeDataTags.map((item: TagsInterface) => (
-                <>
-                  <button
-                    key={item.id}
-                    className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
-                    <div
-                      className={`inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800 text-${item.color}-500`}>
-                      {item.title}
-                    </div>
-                  </button>
-                </>
+                <button
+                  key={item.id}
+                  className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                  <div
+                    className={`inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800 text-${item.color}-500`}>
+                    {item.title}
+                  </div>
+                </button>
               ))}
             </div>
 
@@ -122,10 +128,10 @@ export default function Home() {
                       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 rtl:pr-11 rtl:pl-5 sm:px-6 lg:px-8">
                         <C.TableHeader />
                         <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                          {data?.Surgeries?.map((item: SurgeryInterface) => (
-                            <>
+                          {data?.Surgeries?.map(
+                            (item: SurgeryInterface, index: number) => (
                               <C.TableRow
-                                key={item.id}
+                                key={index}
                                 id={item.id}
                                 startingPoint={item.startingPoint}
                                 date={item.date}
@@ -139,8 +145,8 @@ export default function Home() {
                                   confirmDeleteSurgery(item.id)
                                 }
                               />
-                            </>
-                          ))}
+                            )
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -157,7 +163,7 @@ export default function Home() {
 
                 <div className="flex items-center ml-8 gap-x-3">
                   <C.DefaultButton
-                    onClick={() => console.log("arroz")}
+                    onClick={() => openModalCreate()}
                     text="Add surgery"
                   />
                 </div>
@@ -165,6 +171,17 @@ export default function Home() {
             </>
           )}
         </section>
+
+        <C.EditModal
+          info={modalEditState}
+          closeModalEdit={() =>
+            setModalEditState({
+              open: false,
+              isEdit: true,
+              currentId: "",
+            })
+          }
+        />
 
         {error ? <C.ToastError title={error?.message} /> : <></>}
       </main>
