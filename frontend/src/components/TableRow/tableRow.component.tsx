@@ -8,12 +8,12 @@ interface TableRowInterface {
 }
 
 export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
-  const [modalEditState, setModalEditState] = React.useState(false);
-  function openModalEdit() {
-    setModalEditState(true);
-  }
-
   const [modalDeleteState, setModalDeleteState] = React.useState(false);
+  const [modalEditState, setModalEditState] = React.useState({
+    open: false,
+    isEdit: false,
+    currentId: "",
+  });
 
   function openModalDelete() {
     setModalDeleteState(true);
@@ -22,6 +22,15 @@ export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
   function confirmModalDelete() {
     props.confirmDeleteSurgery();
     setModalDeleteState(false);
+  }
+
+  function openModalEdit() {
+    console.log(modalEditState);
+    setModalEditState({
+      open: true,
+      isEdit: true,
+      currentId: props.id,
+    });
   }
 
   return (
@@ -134,9 +143,14 @@ export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
         confirmModalDelete={() => confirmModalDelete()}
       />
       <Modal.EditModal
-        closeModalDelete={() => setModalEditState(false)}
-        modalState={modalEditState}
-        currentId={props.id}
+        info={modalEditState}
+        closeModalEdit={() =>
+          setModalEditState({
+            open: false,
+            isEdit: true,
+            currentId: props.id,
+          })
+        }
       />
     </>
   );
