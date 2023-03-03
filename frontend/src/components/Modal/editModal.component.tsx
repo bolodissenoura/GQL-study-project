@@ -27,6 +27,15 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
     { surgeryId: string }
   >(GET_SURGERY);
 
+  const [createSurgery, createSurgeryInfo] = useMutation<
+    { createSurgery: SurgeryInterface },
+    { createSurgeryObject: SurgeryWithoutId }
+  >(ADD_SURGERY);
+
+  const [editSurgery, editSurgeryInfo] = useMutation<
+    { editSurgery: SurgeryInterface },
+    { editSurgeryObject: SurgeryInterface }
+  >(EDIT_SURGERY);
   const [initialValues, setInitialValues] = React.useState<SurgeryInterface>({
     id: "",
     date: "",
