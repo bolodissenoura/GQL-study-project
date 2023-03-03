@@ -1,3 +1,2 @@
-export * from "./editModal.component";
+export * from "./CreateEditModal.component";
 export * from "./deleteModal.component";
-
