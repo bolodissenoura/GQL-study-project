@@ -73,7 +73,12 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
 
   function handleSubmit(data: any) {
     console.log(data);
-    props.closeModalEdit();
+    if (props.info.isEdit) {
+      handleEditSurgery();
+    } else {
+      alert("uepa");
+    }
+  }
   }
   return (
     <>
