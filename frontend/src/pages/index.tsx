@@ -8,16 +8,16 @@ import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 
 export default function Home() {
-  const [modalEditState, setModalEditState] = React.useState({
+  const [modalState, setModalState] = React.useState({
     open: false,
     isEdit: false,
     currentId: "",
   });
   function openModalCreate() {
-    setModalEditState({ open: true, isEdit: false, currentId: "" });
+    setModalState({ open: true, isEdit: false, currentId: "" });
   }
   function openModalEdit(id: string) {
-    setModalEditState({ open: true, isEdit: true, currentId: id });
+    setModalState({ open: true, isEdit: true, currentId: id });
   }
   // READ DATA
   const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
@@ -172,10 +172,10 @@ export default function Home() {
           )}
         </section>
 
-        <C.EditModal
-          info={modalEditState}
-          closeModalEdit={() =>
-            setModalEditState({
+        <C.CreateEditModal
+          info={modalState}
+          closeModal={() =>
+            setModalState({
               open: false,
               isEdit: false,
               currentId: "",
