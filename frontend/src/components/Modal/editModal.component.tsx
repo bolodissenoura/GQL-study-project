@@ -1,12 +1,18 @@
 import { fakeDataTags } from "@/fakeData";
-import { GET_SURGERY } from "@/pages/api/services";
-import { type SurgeryInterface } from "@/interfaces";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import {
+  ADD_SURGERY,
+  EDIT_SURGERY,
+  GET_SURGERIES,
+  GET_SURGERY,
+} from "@/pages/api/services";
+import { SurgeryWithoutId, type SurgeryInterface } from "@/interfaces";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Form } from "@unform/web";
 import React from "react";
 import Modal from "react-modal";
 import * as C from "../index";
 import { customStyles } from "./modal.styles";
+import { client } from "@/lib/apollo";
 
 interface EditModalInterface {
   titleModal?: string;
@@ -36,6 +42,7 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
     { editSurgery: SurgeryInterface },
     { editSurgeryObject: SurgeryInterface }
   >(EDIT_SURGERY);
+
   const [initialValues, setInitialValues] = React.useState<SurgeryInterface>({
     id: "",
     date: "",
@@ -79,6 +86,41 @@ export function EditModal(props: EditModalInterface & InfoInterface) {
       alert("uepa");
     }
   }
+
+  async function handleEditSurgery() {
+    await editSurgery({
+      variables: {
+        editSurgeryObject: initialValues,
+      },
+      update: (cache, { data }) => {
+        const surgeriesResponse = client.readQuery<{
+          Surgeries: SurgeryInterface[];
+        }>({ query: GET_SURGERIES });
+        cache.writeQuery({
+          query: GET_SURGERIES,
+          data: {
+            Surgeries: surgeriesResponse?.Surgeries.map(
+              (surgery: SurgeryInterface) => {
+                if (surgery.id === data?.editSurgery.id)
+                  return {
+                    id: surgery.id,
+                    date: data?.editSurgery.date,
+                    doctor: data?.editSurgery.doctor,
+                    hospitalName: data?.editSurgery.hospitalName,
+                    hour: data?.editSurgery.hour,
+                    instrumentator: data?.editSurgery.instrumentator,
+                    startingPoint: data?.editSurgery.startingPoint,
+                    typeTag: data?.editSurgery.typeTag,
+                    patient: data?.editSurgery.patient,
+                  };
+                return client;
+              }
+            ),
+          },
+        });
+      },
+    });
+    // props.closeModalEdit();
   }
   return (
     <>
