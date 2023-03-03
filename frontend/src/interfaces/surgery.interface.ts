@@ -9,3 +9,5 @@ export interface SurgeryInterface {
   hospitalName: string;
   typeTag: string;
 }
+
+export type SurgeryWithoutId = Omit<SurgeryInterface, "id">;
