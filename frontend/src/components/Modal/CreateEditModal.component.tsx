@@ -188,11 +188,17 @@ export function CreateEditModal(
                     required
                     label="Patient"
                   />
-                  <C.SelectField
+                  <C.TextField
+                    name="typeTag"
+                    type="text"
+                    required
+                    label="Tag"
+                  />
+                  {/* <C.SelectField
                     name="typeTag"
                     label="Tag"
                     options={fakeDataTags}
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
