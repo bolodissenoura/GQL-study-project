@@ -83,13 +83,13 @@ export default function Home() {
                 View all tags
               </button>
 
-              {fakeDataTags.map((item: TagsInterface) => (
+              {fakeDataTags.map((item: TagsInterface, index: number) => (
                 <button
-                  key={item.id}
+                  key={index}
                   className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                   <div
                     className={`inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800 text-${item.color}-500`}>
-                    {item.title}
+                    {item.label}
                   </div>
                 </button>
               ))}
