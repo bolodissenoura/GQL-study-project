@@ -73,7 +73,7 @@ export function CreateEditModal(
         hour: currentSurgery.data?.Surgery?.hour || "",
         instrumentator: currentSurgery.data?.Surgery?.instrumentator || "",
         startingPoint: currentSurgery.data?.Surgery?.startingPoint || "",
-        typeTag: "ORT",
+        typeTag: currentSurgery.data?.Surgery?.typeTag || "",
         patient: currentSurgery.data?.Surgery?.patient || "",
       });
     }
@@ -157,6 +157,7 @@ export function CreateEditModal(
     <>
       <Modal
         isOpen={props.info.open}
+        ariaHideApp={false}
         onRequestClose={props.closeModal}
         style={customStyles}
         contentLabel="Edit modal">
@@ -165,7 +166,7 @@ export function CreateEditModal(
             <div className="relative rounded-lg shadow bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {props.titleModal ?? "Modal de ação"}
+                  {props.info.isEdit ? "Edit this surgery" : "Create a surgery"}
                 </h3>
                 <button
                   onClick={() => props.closeModal()}
@@ -224,7 +225,6 @@ export function CreateEditModal(
                     name="typeTag"
                     label="Tag"
                     options={fakeDataTags}
-                    placeholder="ORT"
                   />
                 </div>
               </div>
