@@ -89,8 +89,8 @@ export function CreateEditModal(
     }
   }
 
-  function handleCreateSurgery(data: SurgeryWithoutId) {
-    createSurgery({
+  async function handleCreateSurgery(data: SurgeryWithoutId) {
+    await createSurgery({
       variables: {
         createSurgeryObject: {
           hospitalName: data?.hospitalName,
@@ -102,6 +102,29 @@ export function CreateEditModal(
           startingPoint: data?.startingPoint,
           typeTag: data?.typeTag,
         },
+      },
+      update: (cache, { data }) => {
+        const surgeryResponse = client.readQuery({ query: GET_SURGERIES });
+
+        cache.writeQuery({
+          query: GET_SURGERIES,
+          data: {
+            Surgeries: [
+              ...surgeryResponse?.Surgeries,
+              {
+                id: data?.createSurgery.id,
+                date: data?.createSurgery.date,
+                hospitalName: data?.createSurgery.hospitalName,
+                doctor: data?.createSurgery.doctor,
+                hour: data?.createSurgery.hour,
+                instrumentator: data?.createSurgery.instrumentator,
+                patient: data?.createSurgery.patient,
+                startingPoint: data?.createSurgery.startingPoint,
+                typeTag: data?.createSurgery.typeTag,
+              },
+            ],
+          },
+        });
       },
     });
     props.closeModal();
