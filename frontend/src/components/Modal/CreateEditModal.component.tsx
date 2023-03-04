@@ -162,7 +162,7 @@ export function CreateEditModal(
         style={customStyles}
         contentLabel="Edit modal">
         <Form onSubmit={handleSubmit} initialData={initialValues}>
-          <div className="relative w-full h-full max-w-2xl md:h-auto ">
+          <div className="relative w-full h-full max-h-96 md:max-h-full max-w-2xl md:h-auto ">
             <div className="relative rounded-lg shadow bg-gray-700">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
