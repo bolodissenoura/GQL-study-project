@@ -119,39 +119,6 @@ export function CreateEditModal(
       typeTag: "ORT",
       patient: "",
     });
-    // await editSurgery({
-    //   variables: {
-    //     editSurgeryObject: initialValues,
-    //   },
-    //   update: (cache, { data }) => {
-    //     const surgeriesResponse = client.readQuery<{
-    //       Surgeries: SurgeryInterface[];
-    //     }>({ query: GET_SURGERIES });
-    //     cache.writeQuery({
-    //       query: GET_SURGERIES,
-    //       data: {
-    //         Surgeries: surgeriesResponse?.Surgeries.map(
-    //           (surgery: SurgeryInterface) => {
-    //             if (surgery.id === data?.editSurgery.id)
-    //               return {
-    //                 id: surgery.id,
-    //                 date: data?.editSurgery.date,
-    //                 doctor: data?.editSurgery.doctor,
-    //                 hospitalName: data?.editSurgery.hospitalName,
-    //                 hour: data?.editSurgery.hour,
-    //                 instrumentator: data?.editSurgery.instrumentator,
-    //                 startingPoint: data?.editSurgery.startingPoint,
-    //                 typeTag: data?.editSurgery.typeTag,
-    //                 patient: data?.editSurgery.patient,
-    //               };
-    //             return client;
-    //           }
-    //         ),
-    //       },
-    //     });
-    //   },
-    // });
-    // props.closeModalEdit();
   }
   return (
     <>
