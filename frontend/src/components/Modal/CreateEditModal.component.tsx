@@ -64,9 +64,8 @@ export function CreateEditModal(
       const currentSurgery = await getSurgery({
         variables: { surgeryId: props.info.currentId },
       });
-      console.log(currentSurgery);
       setInitialValues({
-        id: props.info.currentId,
+        id: currentSurgery.data?.Surgery?.id || "",
         date: currentSurgery.data?.Surgery?.date || "",
         doctor: currentSurgery.data?.Surgery?.doctor || "",
         hospitalName: currentSurgery.data?.Surgery?.hospitalName || "",
@@ -81,9 +80,8 @@ export function CreateEditModal(
   }, [getSurgery, props.info]);
 
   function handleSubmit(data: SurgeryWithoutId) {
-    console.log(data);
     if (props.info.isEdit) {
-      handleEditSurgery();
+      handleEditSurgery(data);
     } else {
       handleCreateSurgery(data);
     }
@@ -130,19 +128,13 @@ export function CreateEditModal(
     props.closeModal();
   }
 
-  async function handleEditSurgery() {
-    editSurgery({ variables: { editSurgeryObject: initialValues } });
-    setInitialValues({
-      id: "",
-      date: "",
-      doctor: "",
-      hospitalName: "",
-      hour: "",
-      instrumentator: "",
-      startingPoint: "",
-      typeTag: "ORT",
-      patient: "",
+  async function handleEditSurgery(data: SurgeryWithoutId) {
+    await editSurgery({
+      variables: {
+        editSurgeryObject: { ...data, id: initialValues.id },
+      },
     });
+    props.closeModal();
   }
   return (
     <>
