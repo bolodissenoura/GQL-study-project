@@ -50,7 +50,13 @@ export default function Home() {
       },
     });
   }
-
+  const [search, setSearch] = React.useState("");
+  const filteredData = React.useMemo(() => {
+    const lowerSearch = search.toLocaleLowerCase();
+    return data?.Surgeries.filter((surgery) =>
+      surgery.doctor.toLowerCase().includes(lowerSearch)
+    );
+  }, [search, data?.Surgeries]);
   return (
     <>
       <Head>
@@ -115,7 +121,10 @@ export default function Home() {
               </span>
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Search by doctor"
+                onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                  setSearch(e.currentTarget.value)
+                }
                 className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80  placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -130,7 +139,7 @@ export default function Home() {
                       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <C.TableHeader />
                         <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                          {data?.Surgeries?.map(
+                          {filteredData?.map(
                             (item: SurgeryInterface, index: number) => (
                               <C.TableRow
                                 key={index}
