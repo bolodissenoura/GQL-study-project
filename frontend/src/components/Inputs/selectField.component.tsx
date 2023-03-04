@@ -18,7 +18,7 @@ export const SelectField: React.FC<Props> = ({ name, label, ...rest }) => {
       name: fieldName,
       ref: selectRef.current,
       setValue: (ref, value) => {
-        ref.select.setValue(value || null);
+        ref.select.select.setValue(value || null);
       },
       clearValue: (ref) => {
         ref.select.clearValue();
