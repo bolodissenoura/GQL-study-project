@@ -27,7 +27,9 @@ interface InfoInterface {
   };
 }
 
-export function CreateEditModal(props: CreateEditModalInterface & InfoInterface) {
+export function CreateEditModal(
+  props: CreateEditModalInterface & InfoInterface
+) {
   const [getSurgery, getSurgeryInfo] = useLazyQuery<
     { Surgery: SurgeryInterface },
     { surgeryId: string }
@@ -78,7 +80,7 @@ export function CreateEditModal(props: CreateEditModalInterface & InfoInterface)
     getValues();
   }, [getSurgery, props.info]);
 
-  function handleSubmit(data: any) {
+  function handleSubmit(data: SurgeryWithoutId) {
     console.log(data);
     if (props.info.isEdit) {
       handleEditSurgery();
@@ -99,35 +101,56 @@ export function CreateEditModal(props: CreateEditModalInterface & InfoInterface)
           patient: data?.patient,
           startingPoint: data?.startingPoint,
           typeTag: data?.typeTag,
-      },
-      update: (cache, { data }) => {
-        const surgeriesResponse = client.readQuery<{
-          Surgeries: SurgeryInterface[];
-        }>({ query: GET_SURGERIES });
-        cache.writeQuery({
-          query: GET_SURGERIES,
-          data: {
-            Surgeries: surgeriesResponse?.Surgeries.map(
-              (surgery: SurgeryInterface) => {
-                if (surgery.id === data?.editSurgery.id)
-                  return {
-                    id: surgery.id,
-                    date: data?.editSurgery.date,
-                    doctor: data?.editSurgery.doctor,
-                    hospitalName: data?.editSurgery.hospitalName,
-                    hour: data?.editSurgery.hour,
-                    instrumentator: data?.editSurgery.instrumentator,
-                    startingPoint: data?.editSurgery.startingPoint,
-                    typeTag: data?.editSurgery.typeTag,
-                    patient: data?.editSurgery.patient,
-                  };
-                return client;
-              }
-            ),
-          },
-        });
+        },
       },
     });
+  }
+
+  async function handleEditSurgery() {
+    editSurgery({ variables: { editSurgeryObject: initialValues } });
+    setInitialValues({
+      id: "",
+      date: "",
+      doctor: "",
+      hospitalName: "",
+      hour: "",
+      instrumentator: "",
+      startingPoint: "",
+      typeTag: "ORT",
+      patient: "",
+    });
+    // await editSurgery({
+    //   variables: {
+    //     editSurgeryObject: initialValues,
+    //   },
+    //   update: (cache, { data }) => {
+    //     const surgeriesResponse = client.readQuery<{
+    //       Surgeries: SurgeryInterface[];
+    //     }>({ query: GET_SURGERIES });
+    //     cache.writeQuery({
+    //       query: GET_SURGERIES,
+    //       data: {
+    //         Surgeries: surgeriesResponse?.Surgeries.map(
+    //           (surgery: SurgeryInterface) => {
+    //             if (surgery.id === data?.editSurgery.id)
+    //               return {
+    //                 id: surgery.id,
+    //                 date: data?.editSurgery.date,
+    //                 doctor: data?.editSurgery.doctor,
+    //                 hospitalName: data?.editSurgery.hospitalName,
+    //                 hour: data?.editSurgery.hour,
+    //                 instrumentator: data?.editSurgery.instrumentator,
+    //                 startingPoint: data?.editSurgery.startingPoint,
+    //                 typeTag: data?.editSurgery.typeTag,
+    //                 patient: data?.editSurgery.patient,
+    //               };
+    //             return client;
+    //           }
+    //         ),
+    //       },
+    //     });
+    //   },
+    // });
     // props.closeModalEdit();
   }
   return (
@@ -191,9 +214,14 @@ export function CreateEditModal(props: CreateEditModalInterface & InfoInterface)
                     required
                     label="Hospital"
                   />
+                  <C.TextField
+                    name="patient"
+                    type="text"
+                    required
+                    label="Patient"
+                  />
                   <C.SelectField
-                    onChange={() => console.log("oi")}
-                    id="Tag"
+                    name="typeTag"
                     label="Tag"
                     options={fakeDataTags}
                     placeholder="ORT"
