@@ -14,6 +14,7 @@ export function DeleteModal(props: DeleteModalInterface) {
     <>
       <Modal
         isOpen={props.modalState}
+        ariaHideApp={false}
         onRequestClose={props.closeModalDelete}
         style={customStyles}
         contentLabel="Delete Modal">
