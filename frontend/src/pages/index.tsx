@@ -121,7 +121,7 @@ export default function Home() {
             </div>
           </div>
 
-          {data?.Surgeries ? (
+          {data?.Surgeries.length ? (
             <>
               <div className="flex flex-col mt-6">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
