@@ -104,6 +104,7 @@ export function CreateEditModal(
         },
       },
     });
+    props.closeModal();
   }
 
   async function handleEditSurgery() {
