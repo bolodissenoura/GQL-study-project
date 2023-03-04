@@ -1,35 +1,41 @@
 import { OptionsInterface } from "@/interfaces";
+import { useField } from "@unform/core";
 import React from "react";
 
-interface SelectFieldInterface {
+import ReactSelect, { Props as ReactSelectProps } from "react-select";
+import OptionTypeBase from "react-select";
+
+interface Props extends ReactSelectProps {
+  name: string;
   label: string;
-  placeholder?: string;
-  id: string;
-  options: OptionsInterface[];
-  onChange: any;
 }
 
-export function SelectField(props: SelectFieldInterface) {
+export const SelectField: React.FC<Props> = ({ name, label, ...rest }) => {
+  const selectRef = React.useRef(null);
+  const { fieldName, registerField, defaultValue } = useField(name);
+  React.useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: selectRef.current,
+      setValue: (ref, value) => {
+        ref.select.setValue(value || null);
+      },
+      clearValue: (ref) => {
+        ref.select.clearValue();
+      },
+      getValue: rest.isMulti
+        ? (ref) =>
+            ref.state.value?.map((option: OptionTypeBase) => option) || []
+        : (ref) => (ref.state.value ? ref.state.value.value : ""),
+    });
+  }, [fieldName, registerField, rest.isMulti]);
+
   return (
     <div>
-      <label
-        htmlFor={props.id}
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        {props.label}
+      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        {label}
       </label>
-      <select
-        onChange={() => props.onChange}
-        id={props.id}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected>{props.placeholder ?? "Selecione uma opção"}</option>
-        {props.options.map((item: OptionsInterface, index: number) => (
-          <>
-            <option key={index} defaultValue={item.id}>
-              {item.title}
-            </option>
-          </>
-        ))}
-      </select>
+      <ReactSelect ref={selectRef} defaultValue={defaultValue} {...rest} />
     </div>
   );
-}
+};
