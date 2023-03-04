@@ -4,21 +4,23 @@ import {
   TagsInterface,
 } from "./interfaces";
 
-
 export const fakeDataTags: TagsInterface[] = [
   {
-    title: "ORT",
+    label: "ORT",
     color: "red",
-    id: "elonmusk69420",
+    value: "elonmusk69420",
+    favoriteFlag: false,
   },
   {
-    title: "ATM",
+    label: "ATM",
     color: "blue",
-    id: "elonmusk68420",
+    value: "elonmusk68420",
+    favoriteFlag: true,
   },
   {
-    title: "REC",
+    label: "REC",
     color: "yellow",
-    id: "elonmusk67420",
+    value: "elonmusk67420",
+    favoriteFlag: false,
   },
 ];

@@ -1,5 +1,6 @@
 export interface TagsInterface {
-  id: string;
-  title: string;
+  value: string;
+  label: string;
   color: string;
+  favoriteFlag: boolean;
 }
