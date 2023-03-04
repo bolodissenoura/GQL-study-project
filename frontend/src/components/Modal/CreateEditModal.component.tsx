@@ -83,14 +83,22 @@ export function CreateEditModal(props: CreateEditModalInterface & InfoInterface)
     if (props.info.isEdit) {
       handleEditSurgery();
     } else {
-      alert("uepa");
+      handleCreateSurgery(data);
     }
   }
 
-  async function handleEditSurgery() {
-    await editSurgery({
+  function handleCreateSurgery(data: SurgeryWithoutId) {
+    createSurgery({
       variables: {
-        editSurgeryObject: initialValues,
+        createSurgeryObject: {
+          hospitalName: data?.hospitalName,
+          date: data?.date,
+          doctor: data?.doctor,
+          hour: data?.hour,
+          instrumentator: data?.instrumentator,
+          patient: data?.patient,
+          startingPoint: data?.startingPoint,
+          typeTag: data?.typeTag,
       },
       update: (cache, { data }) => {
         const surgeriesResponse = client.readQuery<{
