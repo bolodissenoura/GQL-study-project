@@ -17,10 +17,4 @@ export const fakeDataTags: TagsInterface[] = [
     value: "elonmusk68420",
     favoriteFlag: true,
   },
-  {
-    label: "REC",
-    color: "yellow",
-    value: "elonmusk67420",
-    favoriteFlag: false,
-  },
 ];
