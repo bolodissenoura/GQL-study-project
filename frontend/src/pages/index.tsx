@@ -20,7 +20,7 @@ export default function Home() {
     setModalState({ open: true, isEdit: true, currentId: id });
   }
   // READ DATA
-  const { data, loading, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
+  const { data, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
     GET_SURGERIES
   );
 
