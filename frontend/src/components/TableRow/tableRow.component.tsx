@@ -91,6 +91,7 @@ export const TableRow = (props: SurgeryInterface & TableRowInterface) => {
             {props.typeTag}
           </div>
         </td>
+        {/* 👇🏾 Future features  */}
         {/* <td className="px-4 py-4 text-sm whitespace-nowrap">
           <p className="text-gray-700 dark:text-gray-200">
             {props.distance} km
