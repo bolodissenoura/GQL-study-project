@@ -53,7 +53,7 @@ export function CreateEditModal(
     hour: "",
     instrumentator: "",
     startingPoint: "",
-    typeTag: "ORT",
+    typeTag: "",
     patient: "",
   });
 
