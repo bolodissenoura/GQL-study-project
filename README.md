@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Banner" title="#bannerimg" src="./banner.png" />
+    <img alt="Banner presentation" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442318713475142/wpp.png" />
 </h1>
 
 <p align="center">
@@ -14,7 +14,7 @@
 ## 💻 About the Project
 
 <p align="center">
-    <img alt="Banner" title="#bannerimg" src="./MVP.png" />
+    <img alt="Mvp Schema" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442485609013338/MVP.png" />
 </p>
 
 <p>This project is made to all instrumentators and doctors who want plans their surgeries . And I dedicate it for my cousing Vinícius, who else work as a Instrumentator, and I give him the idea to make his job as a service and made this project to help him to never lost a excel plans again 😄 .</p>
@@ -38,14 +38,19 @@
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Banner" title="#bannerimg" src="./webView.png" />
+  <img alt="Web View Printscreen" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442318914797568/image_15.png" />
   
 </p>
 
 ### Mobile
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Banner" title="#bannerimg" src="./mobileView.png" />
+  <img alt="Mobile View Printscreen" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442319317454899/image_16.png" />
+  
+</p>
+
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
+  <img alt="Mobile View Printscreen" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442319086760006/image_17.png" />
   
 </p>
 
