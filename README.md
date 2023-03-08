@@ -2,6 +2,8 @@
     <img alt="Banner presentation" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442318713475142/wpp.png" />
 </h1>
 
+Watch the Youtube video : https://youtu.be/i9lREHmUCic
+
 <p align="center">
  <a href="#-sobre-o-projeto">About the Project</a> •
  <a href="#-funcionalidades">Functionalities</a> •
@@ -12,6 +14,8 @@
 </p>
 
 ## 💻 About the Project
+
+
 
 <p align="center">
     <img alt="Mvp Schema" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442485609013338/MVP.png" />
