@@ -24,9 +24,13 @@ export default function Home() {
                     "url('https://images.unsplash.com/photo-1550831106-2747f0d6a81c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80s')",
                 }}></div>
               <div className="w-full p-8 lg:w-1/2">
-                <h2 className="text-2xl font-semibold text-gray-700 text-center">
-                  Surgeries Plans
+                <h2 className="text-6xl font-semibold text-gray-700 text-center">
+                  👨🏾‍⚕️👩🏽‍⚕️
                 </h2>
+                <h1 className="text-2xl font-semibold text-gray-700 text-center">
+                  Surgeries Plans
+                </h1>
+                <hr style={{ margin: "16px 0px" }} />
                 <p className="text-sm text-gray-600 text-center">
                   Up your surgeries organization to another level
                 </p>
