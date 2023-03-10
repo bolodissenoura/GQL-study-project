@@ -60,10 +60,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Surgeries Plan - Login</title>
+        <title>Surgeries Plans - Login</title>
         <meta
           name="description"
-          content="Planejamento de cirurgias para instrumentador"
+          content="Organization to Doctors and Instrumentators Surgeries Plans"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
