@@ -1,62 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import * as C from "@/components";
-import { fakeDataTags } from "@/fakeData";
-import { SurgeryInterface, TagsInterface } from "@/interfaces";
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
-import { client } from "@/lib/apollo";
 
 export default function Home() {
-  const [modalState, setModalState] = React.useState({
-    open: false,
-    isEdit: false,
-    currentId: "",
-  });
-  function openModalCreate() {
-    setModalState({ open: true, isEdit: false, currentId: "" });
-  }
-  function openModalEdit(id: string) {
-    setModalState({ open: true, isEdit: true, currentId: id });
-  }
-  // READ DATA
-  const { data, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
-    GET_SURGERIES
-  );
-
-  // DELETE DATA
-  const [deleteSurgery, deleteSurgeryInfo] = useMutation<
-    {
-      deleteSurgery: string;
-    },
-    { deleteSurgeryId: string }
-  >(DELETE_SURGERY);
-
-  async function confirmDeleteSurgery(id: string) {
-    await deleteSurgery({
-      variables: {
-        deleteSurgeryId: id,
-      },
-      update: (cache, { data }) => {
-        const surgeriesResponse = client.readQuery({ query: GET_SURGERIES });
-        cache.writeQuery({
-          query: GET_SURGERIES,
-          data: {
-            Surgeries: surgeriesResponse?.Surgeries.filter(
-              (surgery: any) => surgery.id !== id
-            ),
-          },
-        });
-      },
-    });
-  }
-  const [search, setSearch] = React.useState("");
-  const filteredData = React.useMemo(() => {
-    const lowerSearch = search.toLocaleLowerCase();
-    return data?.Surgeries.filter((surgery) =>
-      surgery.doctor.toLowerCase().includes(lowerSearch)
-    );
-  }, [search, data?.Surgeries]);
   return (
     <>
       <Head>
