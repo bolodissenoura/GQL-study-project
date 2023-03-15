@@ -5,10 +5,11 @@ import "./mongodb/connect";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
 import { SurgeryResolver } from "./Resolvers/SurgeryResolver";
+import { UserResolver } from "./Resolvers/UserResolver";
 
 async function main() {
   const schema = await buildSchema({
-    resolvers: [SurgeryResolver],
+    resolvers: [SurgeryResolver, UserResolver],
     emitSchemaFile: path.resolve(__dirname, "squema.gql"),
     validate: false,
   });
