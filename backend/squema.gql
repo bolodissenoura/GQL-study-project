@@ -14,6 +14,12 @@ input CreateSurgeryInput {
   typeTag: String!
 }
 
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
 input EditSurgeryInput {
   date: String!
   doctor: String!
@@ -28,6 +34,7 @@ input EditSurgeryInput {
 
 type Mutation {
   createSurgery(createSurgeryObject: CreateSurgeryInput!): Surgery!
+  createUser(createUserObject: CreateUserInput!): User!
   deleteSurgery(id: String!): String!
   editSurgery(editSurgeryObject: EditSurgeryInput!): Surgery!
 }
@@ -35,6 +42,8 @@ type Mutation {
 type Query {
   Surgeries: [Surgery!]!
   Surgery(id: String!): Surgery!
+  User(id: String!): User!
+  Users: [User!]!
 }
 
 type Surgery {
@@ -47,4 +56,11 @@ type Surgery {
   patient: String!
   startingPoint: String!
   typeTag: String!
+}
+
+type User {
+  email: String!
+  id: ID!
+  name: String!
+  password: String!
 }
