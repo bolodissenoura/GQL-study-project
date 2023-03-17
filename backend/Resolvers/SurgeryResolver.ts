@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { CreateSurgeryInput, EditSurgeryInput } from "../inputs/SurgeryInput";
 import { Surgery } from "../models/Surgery";
 import { SurgeryMongo } from "../mongodb/models/Surgery";
@@ -6,6 +6,7 @@ import { SurgeryMongo } from "../mongodb/models/Surgery";
 @Resolver()
 export class SurgeryResolver {
   @Query(() => [Surgery])
+  @Authorized()
   async Surgeries() {
     return await SurgeryMongo.find();
   }
@@ -16,6 +17,7 @@ export class SurgeryResolver {
   }
 
   @Mutation(() => Surgery)
+  @Authorized()
   async createSurgery(
     @Arg("createSurgeryObject") createSurgeryObject: CreateSurgeryInput
   ) {
@@ -43,6 +45,7 @@ export class SurgeryResolver {
   }
 
   @Mutation(() => Surgery)
+  @Authorized()
   async editSurgery(
     @Arg("editSurgeryObject") editSurgeryObject: EditSurgeryInput
   ) {
@@ -59,6 +62,7 @@ export class SurgeryResolver {
   }
 
   @Mutation(() => String)
+  @Authorized()
   async deleteSurgery(@Arg("id") id: string) {
     await SurgeryMongo.deleteOne({ _id: id });
     return `User ${id} successfully deleted`;
