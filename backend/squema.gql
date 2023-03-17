@@ -3,6 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Auth {
+  token: String!
+  user: User!
+}
+
 input CreateSurgeryInput {
   date: String!
   doctor: String!
@@ -37,6 +42,7 @@ type Mutation {
   createUser(createUserObject: CreateUserInput!): User!
   deleteSurgery(id: String!): String!
   editSurgery(editSurgeryObject: EditSurgeryInput!): Surgery!
+  singIn(email: String!, password: String!): Auth!
 }
 
 type Query {
