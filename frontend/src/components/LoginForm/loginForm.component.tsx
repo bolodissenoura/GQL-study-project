@@ -1,0 +1,47 @@
+import { Form } from "@unform/web";
+import * as C from "../index";
+
+export function LoginForm() {
+  function LoginSubmit() {
+    alert("arroz");
+  }
+  return (
+    <>
+      <Form onSubmit={LoginSubmit}>
+        <div className="mt-4">
+          <C.TextField
+            name="email"
+            type="email"
+            required
+            label="Email Address"
+            theme="light"
+          />
+        </div>
+        <div className="mt-4">
+          <C.TextField
+            name="password"
+            type="password"
+            required
+            label="Password"
+            theme="light"
+          />
+          <a href="#" className="text-xs text-gray-500">
+            Forget Password?
+          </a>
+        </div>
+        <div className="mt-8">
+          <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">
+            Login
+          </button>
+        </div>
+        <div className="mt-4 flex items-center justify-between">
+          <span className="border-b w-1/5 md:w-1/4"></span>
+          <a href="#" className="text-xs text-gray-500 uppercase">
+            or sign up
+          </a>
+          <span className="border-b w-1/5 md:w-1/4"></span>
+        </div>
+      </Form>
+    </>
+  );
+}
