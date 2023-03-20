@@ -1,8 +1,9 @@
 import { GENERATE_TOKEN } from "@/pages/api/auth.service";
 import { useMutation } from "@apollo/client";
 import Router from "next/router";
-import { setCookie } from "nookies";
-import React, { useState } from "react";
+import { setCookie, parseCookies } from "nookies";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { createContext } from "react";
 
 interface SignInInterface {
@@ -27,11 +28,33 @@ export function AuthProvider({ children }: any) {
   const isAuthenticated = !!user;
   const [signInRequest] = useMutation(GENERATE_TOKEN);
 
+  useEffect(() => {
+    const { "token-surgery-plans": token } = parseCookies();
+    if (token) {
+      toast("You already logged", {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: "info",
+      });
+      Router.push("/");
+    }
+    if (!token) {
+      Router.push("/login");
+    }
+  }, []);
+
   async function signIn({ email, password }: SignInInterface) {
     await signInRequest({
       variables: {
         email: email,
         password: password,
+      },
+      onError(error) {
+        toast(error.message, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: "error",
+        });
       },
       onCompleted(data) {
         console.log(data);
@@ -39,9 +62,9 @@ export function AuthProvider({ children }: any) {
           maxAge: 60 * 60 * 1, // 1 hour
         });
         setUser(data?.singIn?.user);
+        Router.push("/");
       },
     });
-    Router.push("/");
   }
 
   return (
