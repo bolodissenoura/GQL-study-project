@@ -1,9 +1,14 @@
 import { Form } from "@unform/web";
 import * as C from "../index";
 
+interface LoginFormInterface {
+  email: string;
+  password: string;
+}
+
 export function LoginForm() {
-  function LoginSubmit() {
-    alert("arroz");
+  function LoginSubmit(data: LoginFormInterface) {
+    console.log(data);
   }
   return (
     <>
