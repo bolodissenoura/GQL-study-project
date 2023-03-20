@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/contexts/AuthContext";
 import { client } from "@/lib/apollo";
 import "@/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
@@ -7,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ApolloProvider client={client}>
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </ApolloProvider>
     </>
   );
