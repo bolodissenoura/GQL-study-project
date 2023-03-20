@@ -1,4 +1,6 @@
+import { AuthContext } from "@/contexts/AuthContext";
 import { Form } from "@unform/web";
+import { useContext } from "react";
 import * as C from "../index";
 
 interface LoginFormInterface {
@@ -7,7 +9,10 @@ interface LoginFormInterface {
 }
 
 export function LoginForm() {
-  function LoginSubmit(data: LoginFormInterface) {
+  const { signIn } = useContext(AuthContext);
+
+  async function LoginSubmit(data: LoginFormInterface) {
+    await signIn(data);
     console.log(data);
   }
   return (
