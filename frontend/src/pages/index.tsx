@@ -1,11 +1,15 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
+import * as Icons from "@/components/Icons";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
+import { toast } from "react-toastify";
+import { destroyCookie } from "nookies";
+import Router from "next/router";
 
 export default function Home() {
   const [modalState, setModalState] = React.useState({
@@ -13,6 +17,10 @@ export default function Home() {
     isEdit: false,
     currentId: "",
   });
+  function handleLogout() {
+    destroyCookie(undefined, "token-surgery-plans");
+    Router.push("/login");
+  }
   function openModalCreate() {
     setModalState({ open: true, isEdit: false, currentId: "" });
   }
@@ -82,7 +90,15 @@ export default function Home() {
                 text="Add TAG"
               />
             </div>
+            <div className="flex items-center mt-4 gap-x-3">
+              <C.DefaultButton
+                icon={<Icons.Logout />}
+                onClick={() => handleLogout()}
+                text="Logout"
+              />
+            </div>
           </div>
+
           <div className="mt-6 md:flex md:items-center md:justify-between">
             <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
               <button
@@ -194,7 +210,15 @@ export default function Home() {
           }
         />
 
-        {error ? <C.ToastError title={error?.message} /> : <></>}
+        {error ? (
+          toast(error.message, {
+            hideProgressBar: true,
+            autoClose: 2000,
+            type: "error",
+          })
+        ) : (
+          <></>
+        )}
       </main>
     </>
   );
