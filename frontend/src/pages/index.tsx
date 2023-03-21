@@ -4,12 +4,13 @@ import * as C from "@/components";
 import * as Icons from "@/components/Icons";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 import { toast } from "react-toastify";
-import { destroyCookie } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
 import Router from "next/router";
+import { GetServerSideProps } from "next";
 
 export default function Home() {
   const [modalState, setModalState] = React.useState({
@@ -23,9 +24,6 @@ export default function Home() {
   }
   function openModalCreate() {
     setModalState({ open: true, isEdit: false, currentId: "" });
-  }
-  function openModalEdit(id: string) {
-    setModalState({ open: true, isEdit: true, currentId: id });
   }
   // READ DATA
   const { data, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
@@ -223,3 +221,19 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ["token-surgery-plans"]: token } = parseCookies(ctx);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
