@@ -2,7 +2,7 @@
     <img alt="Banner presentation" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442318713475142/wpp.png" />
 </h1>
 
-Watch the Youtube video : part 1 - https://youtu.be/i9lREHmUCic , adn part 2 - https://www.youtube.com/watch?v=abwxa0ZNM-Q&ab_channel=daniellimae
+Watch the Youtube video : part 1 - https://youtu.be/i9lREHmUCic , and part 2 - https://www.youtube.com/watch?v=abwxa0ZNM-Q&ab_channel=daniellimae
 
 <p align="center">
  <a href="#-sobre-o-projeto">About the Project</a> •
