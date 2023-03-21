@@ -30,6 +30,7 @@ export function AuthProvider({ children }: any) {
 
   useEffect(() => {
     const isLoginPath = Router.pathname === "/login";
+    const isRegisterPath = Router.pathname === "/register";
     const { "token-surgery-plans": token } = parseCookies();
     if (token && isLoginPath) {
       toast("You already logged", {
@@ -39,7 +40,7 @@ export function AuthProvider({ children }: any) {
       });
       Router.push("/");
     }
-    if (!token) {
+    if (!token && !isRegisterPath) {
       Router.push("/login");
     }
   }, []);

@@ -45,7 +45,7 @@ export function LoginForm() {
         </div>
         <div className="mt-4 flex items-center justify-between">
           <span className="border-b w-1/5 md:w-1/4"></span>
-          <a href="#" className="text-xs text-gray-500 uppercase">
+          <a href="/register" className="text-xs text-gray-500 uppercase">
             or sign up
           </a>
           <span className="border-b w-1/5 md:w-1/4"></span>
