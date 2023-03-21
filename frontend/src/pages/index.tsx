@@ -1,11 +1,16 @@
 import React from "react";
 import Head from "next/head";
 import * as C from "@/components";
+import * as Icons from "@/components/Icons";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
+import { toast } from "react-toastify";
+import { destroyCookie, parseCookies } from "nookies";
+import Router from "next/router";
+import { GetServerSideProps } from "next";
 
 export default function Home() {
   const [modalState, setModalState] = React.useState({
@@ -13,11 +18,12 @@ export default function Home() {
     isEdit: false,
     currentId: "",
   });
+  function handleLogout() {
+    destroyCookie(undefined, "token-surgery-plans");
+    Router.push("/login");
+  }
   function openModalCreate() {
     setModalState({ open: true, isEdit: false, currentId: "" });
-  }
-  function openModalEdit(id: string) {
-    setModalState({ open: true, isEdit: true, currentId: id });
   }
   // READ DATA
   const { data, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
@@ -82,7 +88,15 @@ export default function Home() {
                 text="Add TAG"
               />
             </div>
+            <div className="flex items-center mt-4 gap-x-3">
+              <C.DefaultButton
+                icon={<Icons.Logout />}
+                onClick={() => handleLogout()}
+                text="Logout"
+              />
+            </div>
           </div>
+
           <div className="mt-6 md:flex md:items-center md:justify-between">
             <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
               <button
@@ -194,8 +208,32 @@ export default function Home() {
           }
         />
 
-        {error ? <C.ToastError title={error?.message} /> : <></>}
+        {error ? (
+          toast(error.message, {
+            hideProgressBar: true,
+            autoClose: 2000,
+            type: "error",
+          })
+        ) : (
+          <></>
+        )}
       </main>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ["token-surgery-plans"]: token } = parseCookies(ctx);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
