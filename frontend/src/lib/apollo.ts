@@ -4,8 +4,6 @@ import { parseCookies } from "nookies";
 
 const { "token-surgery-plans": token }: any = parseCookies();
 
-console.log(token);
-
 export const client = new ApolloClient({
   link: new HttpLink({
     uri: "http://localhost:4000",
