@@ -29,8 +29,9 @@ export function AuthProvider({ children }: any) {
   const [signInRequest] = useMutation(GENERATE_TOKEN);
 
   useEffect(() => {
+    const isLoginPath = Router.pathname === "/login";
     const { "token-surgery-plans": token } = parseCookies();
-    if (token) {
+    if (token && isLoginPath) {
       toast("You already logged", {
         hideProgressBar: true,
         autoClose: 2000,
