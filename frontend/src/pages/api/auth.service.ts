@@ -11,3 +11,14 @@ export const GENERATE_TOKEN = gql`
     }
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation Mutation($createUserObject: CreateUserInput!) {
+    createUser(createUserObject: $createUserObject) {
+      email
+      id
+      name
+      password
+    }
+  }
+`;
