@@ -13,7 +13,6 @@ export function LoginForm() {
 
   async function LoginSubmit(data: LoginFormInterface) {
     await signIn(data);
-    console.log(data);
   }
   return (
     <>
