@@ -1,22 +1,64 @@
 import { AuthContext } from "@/contexts/AuthContext";
+import { CREATE_USER } from "@/pages/api/auth.service";
+import { useMutation } from "@apollo/client";
 import { Form } from "@unform/web";
+import Router from "next/router";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import * as C from "../index";
 
 interface RegisterFormInterface {
   email: string;
+  name: string;
+  id: string;
   password: string;
 }
 
-export function RegisterForm() {
-  const { signIn } = useContext(AuthContext);
+type RegisterFormWithoutIdInterface = Omit<RegisterFormInterface, "id">;
 
+export function RegisterForm() {
+  const [createUser] = useMutation<
+    { createUser: RegisterFormInterface },
+    { createUserObject: RegisterFormWithoutIdInterface }
+  >(CREATE_USER);
   async function RegisterSubmit(data: RegisterFormInterface) {
-    await signIn(data);
+    await createUser({
+      variables: {
+        createUserObject: {
+          email: data?.email,
+          name: data?.name,
+          password: data?.password,
+        },
+      },
+      onError: (error) => {
+        toast(error.message, {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: "error",
+        });
+      },
+      onCompleted: () => {
+        Router.push("/login");
+        toast(`Wellcome ${data.name} 🎉 ! Now, try to login.`, {
+          hideProgressBar: true,
+          autoClose: 4000,
+          type: "success",
+        });
+      },
+    });
   }
   return (
     <>
       <Form onSubmit={RegisterSubmit}>
+        <div className="mt-4">
+          <C.TextField
+            name="name"
+            type="name"
+            required
+            label="Your Name"
+            theme="light"
+          />
+        </div>
         <div className="mt-4">
           <C.TextField
             name="email"
