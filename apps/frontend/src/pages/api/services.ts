@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_SURGERY = gql`
+export const GET_SURGERY: any = gql`
   query surgery($surgeryId: String!) {
     Surgery(id: $surgeryId) {
       id
@@ -32,7 +32,7 @@ export const GET_SURGERIES: any = gql`
   }
 `;
 
-export const EDIT_SURGERY = gql`
+export const EDIT_SURGERY: any = gql`
   mutation editSurgery($editSurgeryObject: EditSurgeryInput!) {
     editSurgery(editSurgeryObject: $editSurgeryObject) {
       id
@@ -48,7 +48,7 @@ export const EDIT_SURGERY = gql`
   }
 `;
 
-export const ADD_SURGERY = gql`
+export const ADD_SURGERY: any = gql`
   mutation createSurgery($createSurgeryObject: CreateSurgeryInput!) {
     createSurgery(createSurgeryObject: $createSurgeryObject) {
       patient

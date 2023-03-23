@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GENERATE_TOKEN = gql`
+export const GENERATE_TOKEN: any = gql`
   mutation SingIn($password: String!, $email: String!) {
     singIn(password: $password, email: $email) {
       token
