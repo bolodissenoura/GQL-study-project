@@ -35,6 +35,11 @@ Watch the Youtube video : part 1 - https://youtu.be/i9lREHmUCic , and part 2 - h
 - [x] Delete Surgery
 - [x] Search by Doctor
 
+- [x] Authentication
+- [x] Authorization - Protect routes
+- [x] Register User
+- [x] Login
+
 ---
 
 ## 🎨 Layout
@@ -66,17 +71,14 @@ Watch the Youtube video : part 1 - https://youtu.be/i9lREHmUCic , and part 2 - h
 
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/)
 
-#### 🎲 Run the Backend (server)
+#### 🎲 Run all 
 
-### `FOLLOW THE .ENV.EXAMPLE AND CREATE A .ENV.LOCAL with mongodb key`
+### `FOLLOW THE .ENV.EXAMPLE at backend folder AND CREATE A .ENV.LOCAL with mongodb key`
 
 ```bash
 
 # Clone this repo
 $ git clone https://github.com/bolodissenoura/GQL-study-project
-
-# go-to backend folder
-$ cd backend
 
 # Install dependencies
 $ yarn install
@@ -85,28 +87,10 @@ $ yarn install
 $ yarn run dev
 
 # The server will run at localhost:4000
+# The web will run at localhost:3000
 
 ```
 
-#### 🧭 Running the Frontend web
-
-```bash
-
-# Clone this repo
-$ git clone https://github.com/bolodissenoura/GQL-study-project
-
-# go-to backend folder
-$ cd frontend
-
-# Install dependencies
-$ yarn install
-
-# Run in dev mode
-$ yarn run dev
-
-# The server will run at localhost:3000
-
-```
 
 ---
 
@@ -126,6 +110,8 @@ $ yarn run dev
 - **[Mongoose](https://mongoosejs.com/)**
 
 #### [](https://github.com/tgmarinho/Ecoleta#utilit%C3%A1rios)
+
+##Monorepo with Turborepo 🚀
 
 ---
 
