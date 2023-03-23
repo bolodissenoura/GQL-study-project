@@ -1,5 +1,6 @@
 import { AuthContext } from "@/contexts/AuthContext";
 import { Form } from "@unform/web";
+import Link from "next/link";
 import { useContext } from "react";
 import * as C from "../index";
 
@@ -34,9 +35,9 @@ export function LoginForm() {
             label="Password"
             theme="light"
           />
-          <a href="#" className="text-xs text-gray-500">
+          <Link href="#" className="text-xs text-gray-500">
             Forget Password?
-          </a>
+          </Link>
         </div>
         <div className="mt-8">
           <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">
@@ -45,9 +46,9 @@ export function LoginForm() {
         </div>
         <div className="mt-4 flex items-center justify-between">
           <span className="border-b w-1/5 md:w-1/4"></span>
-          <a href="/register" className="text-xs text-gray-500 uppercase">
+          <Link href="/register" className="text-xs text-gray-500 uppercase">
             or sign up
-          </a>
+          </Link>
           <span className="border-b w-1/5 md:w-1/4"></span>
         </div>
       </Form>

@@ -12,7 +12,7 @@ export const GENERATE_TOKEN = gql`
   }
 `;
 
-export const CREATE_USER = gql`
+export const CREATE_USER: any = gql`
   mutation Mutation($createUserObject: CreateUserInput!) {
     createUser(createUserObject: $createUserObject) {
       email

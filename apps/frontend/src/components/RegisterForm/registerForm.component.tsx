@@ -2,6 +2,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { CREATE_USER } from "@/pages/api/auth.service";
 import { useMutation } from "@apollo/client";
 import { Form } from "@unform/web";
+import Link from "next/link";
 import Router from "next/router";
 import { useContext } from "react";
 import { toast } from "react-toastify";
@@ -84,9 +85,9 @@ export function RegisterForm() {
         </div>
         <div className="mt-4 flex items-center justify-between">
           <span className="border-b w-1/5 md:w-1/4"></span>
-          <a href="/login" className="text-xs text-gray-500 uppercase">
+          <Link href="/login" className="text-xs text-gray-500 uppercase">
             or Login
-          </a>
+          </Link>
           <span className="border-b w-1/5 md:w-1/4"></span>
         </div>
       </Form>
