@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only index.ts"
+    "dev": "tsnd --respawn --transpile-only index.ts",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": "16.x"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
