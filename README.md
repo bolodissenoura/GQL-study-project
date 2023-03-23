@@ -1,142 +1,73 @@
-<h1 align="center">
-    <img alt="Banner presentation" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442318713475142/wpp.png" />
-</h1>
+# Turborepo starter
 
-Watch the Youtube video : part 1 - https://youtu.be/i9lREHmUCic , and part 2 - https://www.youtube.com/watch?v=abwxa0ZNM-Q&ab_channel=daniellimae
+This is an official Yarn v1 starter turborepo.
 
-<p align="center">
- <a href="#-sobre-o-projeto">About the Project</a> •
- <a href="#-funcionalidades">Functionalities</a> •
- <a href="#-layout">Layout</a> • 
- <a href="#-como-executar-o-projeto">How to Run</a> • 
- <a href="#-tecnologias">Stacks and Techs</a> • 
- <a href="#-autor">Autor</a> • 
-</p>
+## What's inside?
 
-## 💻 About the Project
+This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
+### Apps and Packages
 
+- `docs`: a [Next.js](https://nextjs.org/) app
+- `web`: another [Next.js](https://nextjs.org/) app
+- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
-<p align="center">
-    <img alt="Mvp Schema" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442485609013338/MVP.png" />
-</p>
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-<p>This project is made to all instrumentators and doctors who want plans their surgeries . And I dedicate it for my cousing Vinícius, who else work as a Instrumentator, and I give him the idea to make his job as a service and made this project to help him to never lost a excel plans again 😄 .</p>
-<p>In the future I will integrate this project with Google Maps API, to users who want calculate how much they expends traveling into surgeries, hospitals and home. And give a overall datas with graphics page .</p>
+### Utilities
 
-<p>But, for now, it is a simple and well done CRUD, just to avoid excel and to improve the UX .</p>
+This turborepo has some additional tools already setup for you:
 
----
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
 
-## ⚙️ Functionalities
+### Build
 
-- [x] Create Surgery
-- [x] Edit Surgery
-- [x] Delete Surgery
-- [x] Search by Doctor
-
----
-
-## 🎨 Layout
-
-### Web
-
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Web View Printscreen" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442318914797568/image_15.png" />
-  
-</p>
-
-### Mobile
-
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Mobile View Printscreen" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442319317454899/image_16.png" />
-  
-</p>
-
-<p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Mobile View Printscreen" title="#bannerimg" src="https://cdn.discordapp.com/attachments/1082297301072105544/1082442319086760006/image_17.png" />
-  
-</p>
-
----
-
-## 🚀 How to run
-
-### 🧶 Prerequisites
-
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/)
-
-#### 🎲 Run the Backend (server)
-
-### `FOLLOW THE .ENV.EXAMPLE AND CREATE A .ENV.LOCAL with mongodb key`
-
-```bash
-
-# Clone this repo
-$ git clone https://github.com/bolodissenoura/GQL-study-project
-
-# go-to backend folder
-$ cd backend
-
-# Install dependencies
-$ yarn install
-
-# Run in dev mode
-$ yarn run dev
-
-# The server will run at localhost:4000
+To build all apps and packages, run the following command:
 
 ```
-
-#### 🧭 Running the Frontend web
-
-```bash
-
-# Clone this repo
-$ git clone https://github.com/bolodissenoura/GQL-study-project
-
-# go-to backend folder
-$ cd frontend
-
-# Install dependencies
-$ yarn install
-
-# Run in dev mode
-$ yarn run dev
-
-# The server will run at localhost:3000
-
+cd my-turborepo
+yarn run build
 ```
 
----
+### Develop
 
-## 🛠 Stacks and Techs
+To develop all apps and packages, run the following command:
 
+```
+cd my-turborepo
+yarn run dev
+```
 
-#### **Website** ([Next.js](https://nextjs.org/))
+### Remote Caching
 
-- **[react-modal](https://www.npmjs.com/package/react-modal)**
-- **[Tailwind](https://tailwindcss.com/)**
-- **[Unform](https://github.com/unform/unform)**
+Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
-#### [](https://github.com/tgmarinho/Ecoleta#server-nodejs--typescript)**Server** ([NodeJS](https://nodejs.org/en/))
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-- **[Graphql](https://graphql.org/)**
-- **[Apollo Server](https://www.apollographql.com/docs/apollo-server/)**
-- **[Mongoose](https://mongoosejs.com/)**
+```
+cd my-turborepo
+npx turbo login
+```
 
-#### [](https://github.com/tgmarinho/Ecoleta#utilit%C3%A1rios)
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
----
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
 
-## 🦸 Autor
+```
+npx turbo link
+```
 
-<sub><b>Daniel Lima</b></sub>
-<br />
-<a href="https://instagram.com/daniellimae" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>
- 	<a href="https://www.twitch.tv/bolodissenouraa" target="_blank"><img src="https://img.shields.io/badge/Twitch-9146FF?style=for-the-badge&logo=twitch&logoColor=white" target="_blank"></a>
- <a href="https://discord.gg/pDbY76q8Qf" target="_blank"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white" target="_blank"></a> 
-  <a href="https://www.linkedin.com/in/daniel-alves-lima-b53090200/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+## Useful Links
 
+Learn more about the power of Turborepo:
 
----
+- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
+- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
+- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
+- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
