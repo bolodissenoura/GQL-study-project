@@ -16,7 +16,7 @@ export const GET_SURGERY = gql`
   }
 `;
 
-export const GET_SURGERIES = gql`
+export const GET_SURGERIES: any = gql`
   query surgeries {
     Surgeries {
       id
@@ -63,7 +63,7 @@ export const ADD_SURGERY = gql`
   }
 `;
 
-export const DELETE_SURGERY = gql`
+export const DELETE_SURGERY: any = gql`
   mutation deleteSurgery($deleteSurgeryId: String!) {
     deleteSurgery(id: $deleteSurgeryId)
   }
