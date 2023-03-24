@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import path from "path";
-require("dotenv").config({ path: ".env.local" });
+require("dotenv").config({ path: ".env" });
 import "./mongodb/connect";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server";
@@ -28,7 +28,8 @@ async function main() {
     },
   });
 
-  const { url } = await server.listen();
+  // eslint-disable-next-line turbo/no-undeclared-env-vars
+  const { url } = await server.listen({ port: process.env.PORT || 4000 });
   console.log("Sever running on " + url);
 }
 
