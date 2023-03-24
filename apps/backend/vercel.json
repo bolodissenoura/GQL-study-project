@@ -3,7 +3,12 @@
   "builds": [
     {
       "src": "index.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "fs": {
+          "chmod": "755"
+        }
+      }
     }
   ],
   "routes": [
