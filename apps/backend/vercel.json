@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "index.ts": {
-      "memory": 3008,
-      "maxDuration": 60
-    }
-  },
   "builds": [
     {
       "src": "index.ts",

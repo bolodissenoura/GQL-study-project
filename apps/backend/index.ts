@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import path from "path";
-require("dotenv").config({ path: ".env.local" });
+require("dotenv").config({ path: ".env" });
 import "./mongodb/connect";
 import { buildSchema } from "type-graphql";
 import { ApolloServer } from "apollo-server-express";
@@ -17,7 +17,7 @@ import cors from "cors";
 async function main() {
   const schema = await buildSchema({
     resolvers: [SurgeryResolver, UserResolver, AuthResolver],
-    emitSchemaFile: path.resolve(__dirname, "squema.gql"),
+    emitSchemaFile: path.resolve(__dirname, "squema.graphql"),
     authChecker: AuthenticationAssurance,
     validate: false,
   });
