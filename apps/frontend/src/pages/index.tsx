@@ -18,7 +18,52 @@ import { destroyCookie, parseCookies } from "nookies";
 import Router from "next/router";
 import { GetServerSideProps } from "next";
 
-export default function Home() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { ["token-surgery-plans"]: token } = parseCookies(context);
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const client = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL,
+    ssrMode: true,
+    cache: new InMemoryCache(),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const { data } = await client.query({
+    query: gql`
+      query surgeries {
+        Surgeries {
+          id
+          date
+          doctor
+          hospitalName
+          hour
+          instrumentator
+          startingPoint
+          typeTag
+          patient
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+};
+
+export default function Home({ data, error, loading }: any) {
   const [modalState, setModalState] = React.useState({
     open: false,
     isEdit: false,
@@ -31,10 +76,6 @@ export default function Home() {
   function openModalCreate() {
     setModalState({ open: true, isEdit: false, currentId: "" });
   }
-  // READ DATA
-  const { data, error, loading } = useQuery<{ Surgeries: SurgeryInterface[] }>(
-    GET_SURGERIES
-  );
 
   // DELETE DATA
   const [deleteSurgery] = useMutation<
@@ -65,7 +106,7 @@ export default function Home() {
   const [search, setSearch] = React.useState("");
   const filteredData = React.useMemo(() => {
     const lowerSearch = search.toLocaleLowerCase();
-    return data?.Surgeries.filter((surgery) =>
+    return data?.Surgeries.filter((surgery: any) =>
       surgery.doctor.toLowerCase().includes(lowerSearch)
     );
   }, [search, data?.Surgeries]);
@@ -241,52 +282,3 @@ export default function Home() {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { ["token-surgery-plans"]: token } = parseCookies(context);
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const { data } = await client.query({
-    query: gql`
-      query surgeries {
-        Surgeries {
-          id
-          date
-          doctor
-          hospitalName
-          hour
-          instrumentator
-          startingPoint
-          typeTag
-          patient
-        }
-      }
-    `,
-  });
-
-  const surgeriesWithoutTypename = data?.Surgeries.map(
-    ({ __typename, ...rest }: any) => rest
-  );
-
-  return {
-    props: {
-      data: surgeriesWithoutTypename,
-    },
-  };
-};
