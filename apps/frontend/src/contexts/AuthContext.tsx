@@ -59,7 +59,6 @@ export function AuthProvider({ children }: any) {
         });
       },
       onCompleted(data) {
-        console.log(data);
         setCookie(undefined, "token-surgery-plans", data?.singIn?.token, {
           maxAge: 60 * 60 * 1, // 1 hour
         });
