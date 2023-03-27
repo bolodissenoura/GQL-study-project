@@ -4,7 +4,13 @@ import * as C from "@/components";
 import * as Icons from "@/components/Icons";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
-import { useMutation, useQuery } from "@apollo/client";
+import {
+  ApolloClient,
+  gql,
+  InMemoryCache,
+  useMutation,
+  useQuery,
+} from "@apollo/client";
 import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 import { toast } from "react-toastify";
@@ -26,12 +32,12 @@ export default function Home() {
     setModalState({ open: true, isEdit: false, currentId: "" });
   }
   // READ DATA
-  const { data, error } = useQuery<{ Surgeries: SurgeryInterface[] }>(
+  const { data, error, loading } = useQuery<{ Surgeries: SurgeryInterface[] }>(
     GET_SURGERIES
   );
 
   // DELETE DATA
-  const [deleteSurgery, deleteSurgeryInfo] = useMutation<
+  const [deleteSurgery] = useMutation<
     {
       deleteSurgery: string;
     },
@@ -43,7 +49,7 @@ export default function Home() {
       variables: {
         deleteSurgeryId: id,
       },
-      update: (cache, { data }) => {
+      update: (cache) => {
         const surgeriesResponse = client.readQuery({ query: GET_SURGERIES });
         cache.writeQuery({
           query: GET_SURGERIES,
@@ -209,11 +215,25 @@ export default function Home() {
         />
 
         {error ? (
+          (console.log(error),
           toast(error.message, {
             hideProgressBar: true,
             autoClose: 2000,
             type: "error",
-          })
+          }))
+        ) : (
+          <></>
+        )}
+        {loading ? (
+          <div role="status" className="animate-pulse">
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[640px] mb-2.5 mx-auto"></div>
+            <div className="h-2.5 mx-auto bg-gray-300 rounded-full dark:bg-gray-700 max-w-[540px]"></div>
+            <br />
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[640px] mb-2.5 mx-auto"></div>
+            <div className="h-2.5 mx-auto bg-gray-300 rounded-full dark:bg-gray-700 max-w-[540px]"></div>
+
+            <span className="sr-only">Loading...</span>
+          </div>
         ) : (
           <></>
         )}
