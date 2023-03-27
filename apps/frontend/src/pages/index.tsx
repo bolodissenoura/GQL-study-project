@@ -222,8 +222,8 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { ["token-surgery-plans"]: token } = parseCookies(ctx);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { ["token-surgery-plans"]: token } = parseCookies(context);
   if (!token) {
     return {
       redirect: {
@@ -233,7 +233,40 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const client = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL,
+    ssrMode: true,
+    cache: new InMemoryCache(),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const { data } = await client.query({
+    query: gql`
+      query surgeries {
+        Surgeries {
+          id
+          date
+          doctor
+          hospitalName
+          hour
+          instrumentator
+          startingPoint
+          typeTag
+          patient
+        }
+      }
+    `,
+  });
+
+  const surgeriesWithoutTypename = data?.Surgeries.map(
+    ({ __typename, ...rest }: any) => rest
+  );
+
   return {
-    props: {},
+    props: {
+      data: surgeriesWithoutTypename,
+    },
   };
 };
