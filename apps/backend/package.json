@@ -2,9 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only index.ts"
+    "dev": "tsnd --respawn --transpile-only index.ts",
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
