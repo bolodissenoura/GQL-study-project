@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import fetch from "cross-fetch";
 import { parseCookies } from "nookies";
 
-const { "token-surgery-plans": token }: any = parseCookies();
+const { "token-surgery-plans": token } = parseCookies();
 
 const isServer = typeof window === "undefined";
 
