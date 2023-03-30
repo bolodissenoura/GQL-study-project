@@ -1,74 +1,25 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import * as C from "@/components";
 import * as Icons from "@/components/Icons";
 import { fakeDataTags } from "@/fakeData";
 import { SurgeryInterface, TagsInterface } from "@/interfaces";
-import {
-  ApolloClient,
-  gql,
-  InMemoryCache,
-  useMutation,
-  useQuery,
-} from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 import { toast } from "react-toastify";
-import { destroyCookie, parseCookies } from "nookies";
+import { destroyCookie } from "nookies";
 import Router from "next/router";
-import { GetServerSideProps } from "next";
+import { AuthContext } from "@/contexts/AuthContext";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { ["token-surgery-plans"]: token } = parseCookies(context);
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const { data } = await client.query({
-    query: gql`
-      query surgeries {
-        Surgeries {
-          id
-          date
-          doctor
-          hospitalName
-          hour
-          instrumentator
-          startingPoint
-          typeTag
-          patient
-        }
-      }
-    `,
-  });
-
-  return {
-    props: {
-      data,
-    },
-  };
-};
-
-export default function Home({ data, error, loading }: any) {
+export default function Home() {
+  const { user } = useContext(AuthContext);
   const [modalState, setModalState] = React.useState({
     open: false,
     isEdit: false,
     currentId: "",
   });
+  console.log(user);
   function handleLogout() {
     destroyCookie(undefined, "token-surgery-plans");
     Router.push("/login");
@@ -76,6 +27,7 @@ export default function Home({ data, error, loading }: any) {
   function openModalCreate() {
     setModalState({ open: true, isEdit: false, currentId: "" });
   }
+  const { data, loading, error } = useQuery(GET_SURGERIES);
 
   // DELETE DATA
   const [deleteSurgery] = useMutation<
@@ -194,55 +146,55 @@ export default function Home({ data, error, loading }: any) {
             <C.TableSkelleton />
           ) : (
             <>
-          {data?.Surgeries.length ? (
-            <>
-              <div className="flex flex-col mt-6">
-                <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <C.TableHeader />
-                        <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
-                          {filteredData?.map(
-                            (item: SurgeryInterface, index: number) => (
-                              <C.TableRow
-                                key={index}
-                                id={item.id}
-                                startingPoint={item.startingPoint}
-                                date={item.date}
-                                doctor={item.doctor}
-                                hospitalName={item.hospitalName}
-                                hour={item.hour}
-                                instrumentator={item.instrumentator}
-                                patient={item.patient}
-                                typeTag={item.typeTag}
-                                confirmDeleteSurgery={() =>
-                                  confirmDeleteSurgery(item.id)
-                                }
-                              />
-                            )
-                          )}
-                        </tbody>
-                      </table>
+              {data?.Surgeries.length ? (
+                <>
+                  <div className="flex flex-col mt-6">
+                    <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <C.TableHeader />
+                            <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900 ">
+                              {filteredData?.map(
+                                (item: SurgeryInterface, index: number) => (
+                                  <C.TableRow
+                                    key={index}
+                                    id={item.id}
+                                    startingPoint={item.startingPoint}
+                                    date={item.date}
+                                    doctor={item.doctor}
+                                    hospitalName={item.hospitalName}
+                                    hour={item.hour}
+                                    instrumentator={item.instrumentator}
+                                    patient={item.patient}
+                                    typeTag={item.typeTag}
+                                    confirmDeleteSurgery={() =>
+                                      confirmDeleteSurgery(item.id)
+                                    }
+                                  />
+                                )
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="sm:flex sm:items-center justify-center mt-8 w-full">
-                <p className="text-lg font-medium text-gray-900 dark:text-white">
-                  You dont have surgeries yet, try to :{" "}
-                </p>
+                </>
+              ) : (
+                <>
+                  <div className="sm:flex sm:items-center justify-center mt-8 w-full">
+                    <p className="text-lg font-medium text-gray-900 dark:text-white">
+                      You dont have surgeries yet, try to :{" "}
+                    </p>
 
-                <div className="flex items-center ml-8 gap-x-3">
-                  <C.DefaultButton
-                    onClick={() => openModalCreate()}
-                    text="Add surgery"
-                  />
-                </div>
-              </div>
+                    <div className="flex items-center ml-8 gap-x-3">
+                      <C.DefaultButton
+                        onClick={() => openModalCreate()}
+                        text="Add surgery"
+                      />
+                    </div>
+                  </div>
                 </>
               )}
             </>
