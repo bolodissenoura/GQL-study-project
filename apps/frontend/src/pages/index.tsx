@@ -190,7 +190,10 @@ export default function Home({ data, error, loading }: any) {
               />
             </div>
           </div>
-
+          {loading ? (
+            <C.TableSkelleton />
+          ) : (
+            <>
           {data?.Surgeries.length ? (
             <>
               <div className="flex flex-col mt-6">
@@ -240,6 +243,8 @@ export default function Home({ data, error, loading }: any) {
                   />
                 </div>
               </div>
+                </>
+              )}
             </>
           )}
         </section>
@@ -256,25 +261,11 @@ export default function Home({ data, error, loading }: any) {
         />
 
         {error ? (
-          (console.log(error),
           toast(error.message, {
             hideProgressBar: true,
             autoClose: 2000,
             type: "error",
-          }))
-        ) : (
-          <></>
-        )}
-        {loading ? (
-          <div role="status" className="animate-pulse">
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[640px] mb-2.5 mx-auto"></div>
-            <div className="h-2.5 mx-auto bg-gray-300 rounded-full dark:bg-gray-700 max-w-[540px]"></div>
-            <br />
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[640px] mb-2.5 mx-auto"></div>
-            <div className="h-2.5 mx-auto bg-gray-300 rounded-full dark:bg-gray-700 max-w-[540px]"></div>
-
-            <span className="sr-only">Loading...</span>
-          </div>
+          })
         ) : (
           <></>
         )}
