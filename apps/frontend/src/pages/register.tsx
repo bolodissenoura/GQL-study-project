@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import * as C from "../components";
 
-export default function Home() {
+export default function Register() {
   return (
     <>
       <Head>
