@@ -4,8 +4,10 @@ import { parseCookies } from "nookies";
 
 const { "token-surgery-plans": token }: any = parseCookies();
 
+const isServer = typeof window === "undefined";
+
 export const client = new ApolloClient({
-  ssrMode: true,
+  ssrMode: isServer,
   link: new HttpLink({
     uri: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL,
     fetch,
