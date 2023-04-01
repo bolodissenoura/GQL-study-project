@@ -13,6 +13,8 @@ Watch the Youtube video : part 1 - https://youtu.be/i9lREHmUCic , and part 2 - h
  <a href="#-autor">Autor</a> • 
 </p>
 
+## See the deployed project here : https://gql-study-project-frontend.vercel.app/
+
 ## 💻 About the Project
 
 
