@@ -8,9 +8,26 @@ import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_SURGERY, GET_SURGERIES } from "./api/services";
 import { client } from "@/lib/apollo";
 import { toast } from "react-toastify";
-import { destroyCookie } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
 import Router from "next/router";
 import { AuthContext } from "@/contexts/AuthContext";
+
+export async function getServerSideProps(context: any) {
+  const { "token-surgery-plans": token } = parseCookies(context);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { token },
+  };
+}
 
 export default function Home() {
   const { user } = useContext(AuthContext);
@@ -22,12 +39,25 @@ export default function Home() {
   console.log(user);
   function handleLogout() {
     destroyCookie(undefined, "token-surgery-plans");
+    localStorage.removeItem("hasVisitedMyPage");
     Router.push("/login");
   }
   function openModalCreate() {
     setModalState({ open: true, isEdit: false, currentId: "" });
   }
-  const { data, loading, error } = useQuery(GET_SURGERIES);
+  const { data, loading, error, refetch } = useQuery(GET_SURGERIES);
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
+
+  React.useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem("hasVisitedMyPage");
+    if (hasVisitedBefore) {
+      setIsFirstTime(false);
+    } else {
+      localStorage.setItem("hasVisitedMyPage", "true");
+      location.reload();
+      console.log("refetched");
+    }
+  }, []);
 
   // DELETE DATA
   const [deleteSurgery] = useMutation<
