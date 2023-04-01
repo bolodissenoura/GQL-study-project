@@ -17,6 +17,7 @@ interface RegisterFormInterface {
 type RegisterFormWithoutIdInterface = Omit<RegisterFormInterface, "id">;
 
 export function RegisterForm() {
+  const { signIn } = useContext(AuthContext);
   const [createUser] = useMutation<
     { createUser: RegisterFormInterface },
     { createUserObject: RegisterFormWithoutIdInterface }
@@ -38,8 +39,9 @@ export function RegisterForm() {
         });
       },
       onCompleted: () => {
-        Router.push("/login");
-        toast(`Wellcome ${data.name} 🎉 ! Now, try to login.`, {
+        signIn(data);
+        Router.push("/");
+        toast(`Wellcome ${data.name} 🎉 ! `, {
           hideProgressBar: true,
           autoClose: 4000,
           type: "success",
